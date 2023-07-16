@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/brand/darkshot-logo.png";
-
+import ThemeButton from "../buttons/ThemeButton";
 const NavigationBar = ({ links }) => {
   const [navLinks, setNavLinks] = useState(links);
-  console.log(navLinks);
   const navLinkRef = useRef(null); //in-progress adding useRef hook
   const [activeItem, setActiveItem] = useState(null);
 
+  const handleLogin = (event) => {
+    alert(event);
+  };
   const handleItemClick = (event) => {
     if (activeItem) {
       activeItem.classList.remove("active");
@@ -15,7 +17,6 @@ const NavigationBar = ({ links }) => {
     event.target.classList.add("active");
     setActiveItem(event.target);
   };
-
   const logoImage = {
     height: "30px",
     objectFit: "cover",
@@ -64,21 +65,8 @@ const NavigationBar = ({ links }) => {
                 })
               : ``}
           </ul>
-
-          <a
-            href="/login"
-            className="btn btn-light text-uppercase text-decoration-none rounded-0"
-            style={{ fontFamily: "Agdasima-Bold" }}
-          >
-            register
-          </a>
-          <a
-            href="/login"
-            className="btn border-white text-white text-uppercase text-decoration-none ms-2 rounded-0"
-            style={{ fontFamily: "Agdasima-Bold" }}
-          >
-            sign in
-          </a>
+          <ThemeButton textName="Register" onClick={handleLogin} />
+          <ThemeButton textName="Sign in" primary={false} />
         </div>
       </>
     </nav>

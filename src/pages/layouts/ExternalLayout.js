@@ -2,6 +2,12 @@ import React from "react";
 import NavigationBar from "../../components/shared/NavigationBar";
 import LandingPage from "../external/landing/Index";
 import Services from "../external/services/Index";
+import Projects from "../external/project/Index";
+import About from "../external/about/Index";
+import Career from "../external/career/Index";
+import Contact from "../external/contact/Index";
+
+import Footer from "../../components/shared/Footer";
 const ExternalLayout = () => {
   const accessLists = [
     {
@@ -40,6 +46,11 @@ const ExternalLayout = () => {
       <NavigationBar links={accessLists} />
       <LandingPage />
       <Services />
+      <Projects />
+      <About />
+      <Career />
+      <Contact />
+      <Footer />
     </div>
   );
 };

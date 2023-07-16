@@ -1,6 +1,6 @@
 .custom-headers {
   font-family: "Agdasima-Bold";
-  font-size: "72px";
+  font-size: 64px;
   position: relative;
 }
 .custom-headers::before {
