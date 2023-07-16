@@ -13,21 +13,13 @@ const Index = () => {
   const textHeading = "We love to hear from you";
   const form = useRef(null);
 
-  const contactHandler = (e) => {
-    e.preventDefault();
-  };
   return (
     <div className="row align-items-center" style={contactContent}>
       <div className="col-12 mb-5">
         <ThemeHeader title={textHeading} />
       </div>
       <div className="col-12  m-auto">
-        <form
-          onSubmit={contactHandler}
-          action=""
-          method="post"
-          className="row align-items-center"
-        >
+        <form action="" method="post" className="row align-items-center">
           <div className="col-lg-5">
             <InputField name="name" type="text" />
           </div>
@@ -42,8 +34,14 @@ const Index = () => {
               textName="Send Message"
               enableModal={true}
               modalName="confirmInputRequest"
-              modalHeader="Confirm"
-              modalBody="Confirm Submit"
+              modalHeader="Confirmation"
+              modalCloseButtonText="back"
+              modalSubmitButtonText="confirm"
+              modalBody={
+                <h1 className="text-white">
+                  Great! Click "confirm" to send your message.
+                </h1>
+              }
             />
           </div>
         </form>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ThemeModal from "../popups/ThemeModal";
 const ThemeButton = ({
   textName,
@@ -6,12 +6,15 @@ const ThemeButton = ({
   modalName,
   modalHeader,
   modalBody,
+  modalCloseButtonText,
+  modalSubmitButtonText,
   primary,
 }) => {
   const btn = useRef(null);
+
   useEffect(() => {
     function showModal(val) {
-      if (val == true) {
+      if (val === true) {
         btn.current.setAttribute("data-bs-target", "#" + modalName);
         btn.current.setAttribute("data-bs-toggle", "modal");
       }
@@ -32,6 +35,7 @@ const ThemeButton = ({
       {primary === false ? (
         <button
           ref={btn}
+          type="button"
           className="btn  btn-dark btn-theme border rounded-0 mx-1 text-uppercase"
           style={{ fontFamily: "Agdasima-Bold" }}
         >
@@ -40,6 +44,7 @@ const ThemeButton = ({
       ) : (
         <button
           ref={btn}
+          type="button"
           className="btn btn-light btn-theme  rounded-0 mx-1 text-uppercase"
           style={{ fontFamily: "Agdasima-Bold" }}
         >
@@ -51,6 +56,8 @@ const ThemeButton = ({
           modalName={modalName}
           modalHeader={modalHeader}
           modalBody={modalBody}
+          modalCloseButtonText={modalCloseButtonText}
+          modalSubmitButtonText={modalSubmitButtonText}
         />
       ) : (
         enableModal === false
