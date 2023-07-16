@@ -17,18 +17,12 @@ const Index = () => {
   return (
     <div className="row align-items-center" style={landingContent}>
       <div className="col-7">
-        <h1
-          className="text-white text-uppercase"
-          style={{ fontFamily: "Agdasima-Bold", fontSize: "72px" }}
-        >
+        <div className="text-white text-uppercase text-uppercase th-fs-1 th-fw-bold">
           Where dreams become
-        </h1>
-        <h1
-          className="text-white text-uppercase pb-3"
-          style={{ fontFamily: "Agdasima-Bold", fontSize: "72px" }}
-        >
+        </div>
+        <div className="text-white text-uppercase pb-3 th-fs-1 th-fw-bold">
           Cinematic Masterpieces.
-        </h1>
+        </div>
         <ThemeButton textName="Inquire Now" />
         <ThemeButton textName="Learn more" primary={false} />
       </div>
