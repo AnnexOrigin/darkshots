@@ -12,6 +12,7 @@ const AccountSettings = () => {
     height: "calc(100vh - 3.625rem)",
     overflow: "auto",
   };
+  // Table Properties
   const tableHeaders = [
     { columnName: "id" },
     { columnName: "first name" },
@@ -123,8 +124,8 @@ const AccountSettings = () => {
       position: "admin",
     },
   ];
-  const tableHeadContent = "accountsHeads";
-  const tableBodyContent = "accountsRows";
+  const tableHeadContent = "accountHeads";
+  const tableBodyContent = "accountRows";
   return (
     <>
       <div className="row flex-nowrap mx-0" style={containerStyle}>
