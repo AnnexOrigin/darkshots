@@ -1,8 +1,9 @@
 import React from "react";
 import SectionContainer from "../../components/shared/SectionContainer";
 import SimpleButton from "../../components/buttons/SimpleButton";
-const Dashboard = () => {
-  const sectionTitle = "Accounts Settings";
+import SimpleTable from "../../components/table/SimpleTable";
+const AccountSettings = () => {
+  const sectionTitle = "Account Settings";
   const containerStyle = {
     marginTop: "3.625rem",
   };
@@ -11,14 +12,14 @@ const Dashboard = () => {
     overflow: "auto",
   };
   const tableHeaders = [
-    { columName: "id" },
-    { columName: "first name" },
-    { columName: "middle name" },
-    { columName: "last name" },
-    { columName: "email" },
-    { columName: "contact number" },
-    { columName: "position" },
-    { columName: "action" },
+    { columnName: "id" },
+    { columnName: "first name" },
+    { columnName: "middle name" },
+    { columnName: "last name" },
+    { columnName: "email" },
+    { columnName: "contact number" },
+    { columnName: "position" },
+    { columnName: "action" },
   ];
   const tableRows = [
     {
@@ -121,8 +122,8 @@ const Dashboard = () => {
       position: "admin",
     },
   ];
-  const tableHeadContent = "dashboardHeads";
-  const tableBodyContent = "dashboardRows";
+  const tableHeadContent = "accountsHeads";
+  const tableBodyContent = "accountsRows";
   return (
     <>
       <div className="row flex-nowrap mx-0" style={containerStyle}>
@@ -136,7 +137,7 @@ const Dashboard = () => {
           {/* Section Header */}
           <div className="d-flex align-items-center py-3">
             <div className="col-auto th-fs-3 th-fw-bold text-uppercase">
-              Account Settings
+              {sectionTitle}
             </div>
             <div className="col d-flex justify-content-end ">
               <div className="col-3">
@@ -159,40 +160,12 @@ const Dashboard = () => {
               <SimpleButton size="sm" color="success" label="right Area" />
             }
           >
-            <table className="table table-sm table-hover table-responsive">
-              <thead className="align-end text-uppercase ">
-                {tableHeaders.map((th) => {
-                  return (
-                    <>
-                      <th className="th-fw-bold text-center p-0 sticky-top  th-bg-secondary">
-                        {/* TABLE TITLE */}
-                        <div className="col-12 th-fw-bold text-centerpy-2  th-bg-secondary">
-                          {th.columName}
-                        </div>
-                      </th>
-                    </>
-                  );
-                })}
-              </thead>
-              <tbody>
-                {tableRows.map((td) => {
-                  return (
-                    <>
-                      <tr className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
-                        <td>{td.id}</td>
-                        <td>{td.firstName}</td>
-                        <td>{td.middleName}</td>
-                        <td>{td.lastName}</td>
-                        <td>{td.email}</td>
-                        <td>{td.contactNumber}</td>
-                        <td>{td.position}</td>
-                        <td>{td.action}</td>
-                      </tr>
-                    </>
-                  );
-                })}
-              </tbody>
-            </table>
+            <SimpleTable
+              heads={tableHeaders}
+              rows={tableRows}
+              tableHeadContent={tableHeadContent}
+              tableBodyContent={tableBodyContent}
+            />
           </SectionContainer>
         </section>
       </div>
@@ -200,4 +173,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AccountSettings;
