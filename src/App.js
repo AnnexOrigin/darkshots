@@ -11,11 +11,12 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<ExternalLayout />} />
-      <Route path="admin/dashboard" element={<Dashboard />}></Route>
-      <Route path="admin/clients" element={<Clients />}></Route>
-      <Route path="admin/applicants" element={<Applicants />}></Route>
-      <Route path="admin/posts" element={<Posts />}></Route>
+
       <Route element={<InternalLayout />}>
+        <Route path="admin/dashboard" element={<Dashboard />}></Route>
+        <Route path="admin/clients" element={<Clients />}></Route>
+        <Route path="admin/applicants" element={<Applicants />}></Route>
+        <Route path="admin/posts" element={<Posts />}></Route>
         {/* <Route path="admin/dashboard" element={user}></Route> */}
       </Route>
 

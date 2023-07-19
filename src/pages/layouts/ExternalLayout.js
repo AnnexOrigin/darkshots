@@ -43,7 +43,7 @@ const ExternalLayout = () => {
   ];
   return (
     <div className="container-fluid">
-      <NavigationBar links={accessLists} />
+      <NavigationBar links={accessLists} position="false" />
       <LandingPage />
       <Services />
       <Projects />
