@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import ThemeModal from "../popups/ThemeModal";
 const ThemeButton = ({
   textName,
+  clickTrigger,
   enableModal,
+  type,
   modalName,
   modalHeader,
   modalBody,
@@ -35,8 +37,9 @@ const ThemeButton = ({
       {primary === false ? (
         <button
           ref={btn}
-          type="button"
+          type={type ? "submit" : "button"}
           className="btn  btn-dark btn-theme border rounded-0 mx-1 text-uppercase"
+          onClick={clickTrigger}
           style={{ fontFamily: "Agdasima-Bold" }}
         >
           <b>{textName ?? "Empty"}</b>
@@ -44,8 +47,9 @@ const ThemeButton = ({
       ) : (
         <button
           ref={btn}
-          type="button"
+          type={type ? "submit" : "button"}
           className="btn btn-light btn-theme  rounded-0 mx-1 text-uppercase"
+          onClick={clickTrigger}
           style={{ fontFamily: "Agdasima-Bold" }}
         >
           <b>{textName ?? "Empty"}</b>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 import Card from "../../../components/collections/Cards";
 import ThemeButton from "../../../components/buttons/ThemeButton";
+import CareerForm from "./CareerForm";
 const Index = () => {
   const textHeading = "We're Hiring! Grab the opportunity";
   const textMessage = "Let your talents leads to career path.";
@@ -77,7 +78,10 @@ const Index = () => {
               textName="Apply now"
               enableModal={true}
               modalName="openModalCareerApplication"
-              modalHeader="open it"
+              modalHeader="Fill up form application"
+              modalCloseButtonText="back"
+              modalSubmitButtonText="confirm"
+              modalBody={<CareerForm items={jobPositions} />}
             />
           </div>
         </div>

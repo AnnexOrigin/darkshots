@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const ThemeHeader = ({ title }) => {
+const ThemeHeader = ({ title, breakWord }) => {
   const [valueHeader, setValueHeader] = useState(title);
   const formmattedHeaders = useRef(null);
   useEffect(() => {
@@ -8,7 +8,7 @@ const ThemeHeader = ({ title }) => {
       const splitString = str
         .split(" ")
         .map((item, index) => {
-          return index == 1 ? item + "<br>" : item ?? item;
+          return index == (breakWord ?? 1) ? item + "<br>" : item ?? item;
         })
         .join(" ");
       // const reverseString = splitString.reverse();

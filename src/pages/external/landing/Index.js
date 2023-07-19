@@ -1,5 +1,6 @@
 import React from "react";
 import ThemeButton from "../../../components/buttons/ThemeButton";
+import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 const Index = () => {
   const landingContent = {
     height: "100vh",
@@ -13,16 +14,14 @@ const Index = () => {
     backgroundSize: "cover",
     position: "relative",
   };
-
+  const textHeading = "Where dreams become Cinematic Masterpieces";
   return (
-    <div className="row align-items-center" style={landingContent}>
+    <div
+      className="row align-items-center landing-section"
+      style={landingContent}
+    >
       <div className="col-7">
-        <div className="text-white text-uppercase text-uppercase th-fs-1 th-fw-bold">
-          Where dreams become
-        </div>
-        <div className="text-white text-uppercase pb-3 th-fs-1 th-fw-bold">
-          Cinematic Masterpieces.
-        </div>
+        <ThemeHeader title={textHeading} breakWord={2} />
         <ThemeButton textName="Inquire Now" />
         <ThemeButton textName="Learn more" primary={false} />
       </div>
