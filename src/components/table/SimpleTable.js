@@ -7,7 +7,10 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
           ? heads.map((th) => {
               return (
                 <>
-                  <th className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
+                  <th
+                    key={th.columnName}
+                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary"
+                  >
                     <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
                       {th.columnName}
                     </div>
@@ -22,7 +25,10 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
           ? rows.map((td) => {
               return (
                 <>
-                  <tr className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                  <tr
+                    key={td.id}
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold "
+                  >
                     <td>{td.id}</td>
                     <td>{td.firstName}</td>
                     <td>{td.middleName}</td>

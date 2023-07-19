@@ -2,6 +2,7 @@ import React from "react";
 import SectionContainer from "../../components/shared/SectionContainer";
 import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
+import Icon from "../../assets/images/placeholder/Img_placeholder.jpg";
 const AccountSettings = () => {
   const sectionTitle = "Account Settings";
   const containerStyle = {
@@ -154,11 +155,21 @@ const AccountSettings = () => {
           {/* Section Content */}
           <SectionContainer
             leftArea={
-              <SimpleButton size="sm" color="success" label="left Area" />
+              <SimpleButton
+                size="sm"
+                color="success"
+                icon={Icon}
+                label={"Left Button"}
+              />
             }
-            rightArea={
-              <SimpleButton size="sm" color="success" label="right Area" />
-            }
+            rightArea={[
+              <SimpleButton
+                size="sm"
+                color="dark"
+                label={"Right Button"}
+                classes={"text-light rounded-0 "}
+              />,
+            ]}
           >
             <SimpleTable
               heads={tableHeaders}

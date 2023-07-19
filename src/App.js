@@ -4,7 +4,7 @@ import InternalLayout from "./pages/layouts/InternalLayout";
 import Login from "./pages/external/login/Index";
 import Register from "./pages/external/register/Index";
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/dashboard/Dashboard";
+import AccountSettings from "./pages/accountSettings/AccountSettings";
 import Applicants from "./pages/applicants/Applicants";
 import Clients from "./pages/clients/Clients";
 import Posts from "./pages/posts/Posts";
@@ -16,7 +16,10 @@ function App() {
       <Route path="/signin" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route element={<InternalLayout />}>
-        <Route path="admin/dashboard" element={<Dashboard />}></Route>
+        <Route
+          path="admin/accountSettings"
+          element={<AccountSettings />}
+        ></Route>
         <Route path="admin/clients" element={<Clients />}></Route>
         <Route path="admin/applicants" element={<Applicants />}></Route>
         <Route path="admin/posts" element={<Posts />}></Route>
