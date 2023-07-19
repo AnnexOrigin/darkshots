@@ -1,6 +1,6 @@
 import React from "react";
 
-const SectionContainer = ({ leftArea, rightArea, children }) => {
+const ContentBody = ({ leftArea, rightArea, children }) => {
   return (
     <div className="col-12">
       <div className="row mx-0 gap-2">
@@ -18,4 +18,4 @@ const SectionContainer = ({ leftArea, rightArea, children }) => {
   );
 };
 
-export default SectionContainer;
+export default ContentBody;
