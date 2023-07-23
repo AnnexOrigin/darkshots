@@ -3,11 +3,15 @@ import React from "react";
 const ContentHeader = ({ title, rightArea }) => {
   return (
     <>
-      <div className="d-flex align-items-center py-3">
-        <div className="col-auto th-fs-3 th-fw-bold text-uppercase">
-          {title}
+      <div className="col-12 py-2">
+        <div className="row mx-0 gap-2">
+          <div className="col-12 col-lg d-flex justify-content-lg-start justify-content-center gap-1 gx-1">
+            <span className=" h5 th-fw-bold text-uppercase">{title}</span>
+          </div>
+          <div className="col-12 col-lg d-flex justify-content-lg-end justify-content-center gap-2 gx-1">
+            {rightArea != null ? rightArea : null}
+          </div>
         </div>
-        <div className="col d-flex justify-content-end ">{rightArea}</div>
       </div>
     </>
   );

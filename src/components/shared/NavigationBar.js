@@ -28,7 +28,7 @@ const NavigationBar = ({ links, position }) => {
 
   return (
     <>
-      {isAdmin == "true" ? (
+      {isAdmin === "true" ? (
         ""
       ) : (
         <nav
@@ -82,14 +82,14 @@ const NavigationBar = ({ links, position }) => {
           </>
         </nav>
       )}
-      {isAdmin == "false" ? (
+      {isAdmin === "false" ? (
         ""
       ) : (
         <nav
           className="navbar navbar-expand-lg navbar-dark fixed-top px-5"
           style={{ zIndex: "3", backgroundColor: "rgba(0,0,0 )" }}
         >
-          <Link className="navbar-brand " to="/">
+          <Link className="navbar-brand " to="admin/accountSettings">
             <img src={logo} className="img img-fluid" style={logoImage} />
           </Link>
 

@@ -3,7 +3,7 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
   return (
     <table className="table table-sm table-hover table-responsive">
       <thead className="align-end text-uppercase ">
-        {tableHeadContent == "accountHeads"
+        {tableHeadContent === "accountHeads"
           ? heads.map((th) => {
               return (
                 <>
@@ -21,7 +21,7 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
           : ""}
       </thead>
       <tbody>
-        {tableBodyContent == "accountRows"
+        {tableBodyContent === "accountRows"
           ? rows.map((td) => {
               return (
                 <>

@@ -38,28 +38,24 @@ const InternalLayout = () => {
         <NavigationBar links={accessLists} position="true" />
         <div className="row flex-nowrap mx-0" style={containerStyle}>
           <aside className="col-2 col-sm-3 col-md-3 col-lg-3 col-xl-2 px-sm-2 px-0 bg-dark position-fixed vh-100 text-light container pt-4 px-1 ">
-            <ul class="list-group">
+            <div className="list-group">
               {sidebarLists.map((link) => {
                 return (
                   <>
-                    <li
+                    <Link
                       key={link.id}
-                      class="list-group-item bg-transparent border border-0"
+                      to={link.redirectTo}
+                      className="list-group-item bg-transparent border border-0 link-light text-decoration-none lh-1"
                     >
-                      <Link
-                        to={link.redirectTo}
-                        className="link-light text-decoration-none"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
+                      {link.name}
+                    </Link>
                   </>
                 );
               })}
-            </ul>
+            </div>
           </aside>
           <section
-            className="col-10 col-sm-9 col-md-9 col-lg-9 col-xl-10 pt-4 px-5 offset-2 offset-sm-3 offset-md-3 offset-lg-3 offset-xl-2 "
+            className="col-10 col-sm-9 col-md-9 col-lg-9 col-xl-10 pt-4 px-5 offset-2 offset-sm-3 offset-md-3 offset-lg-3 offset-xl-2"
             style={contentHeight}
           >
             <Outlet />
