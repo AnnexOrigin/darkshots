@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 import InputField from "../../../components/forms/InputField";
 import ThemeButton from "../../../components/buttons/ThemeButton";
 const Index = () => {
+  const [usernameValue, setUsernameValue] = useState(null);
+  const [passwordValue, setPasswordValue] = useState(null);
+  const apiEndpoint = "http://localhost:3001/api/user/login";
+  const apiEndpoint2 = "http://localhost:3001/api/user/current-user";
   const loginContent = {
     minHeight: "100vh",
     width: "100vw",
@@ -11,10 +15,55 @@ const Index = () => {
     position: "relative",
     backgroundColor: "black",
   };
+  const handleUserName = (event) => {
+    setUsernameValue(event.target.value);
+  };
+  const handlePassword = (event) => {
+    setPasswordValue(event.target.value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await fetch(apiEndpoint, {
+      method: "post",
+      credentials: "include",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        username: usernameValue,
+        password: passwordValue,
+      }),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        console.log(data.user);
+      })
+      .catch((error) => {
+        console.log({ error: error.message });
+      });
+  };
   const handleBack = (e) => {
     window.location.href = window.origin;
   };
   const textHeading = "Sign in your account";
+
+  useEffect(() => {
+    // fetch(apiEndpoint2, {
+    //   method: "post",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: {
+    //     token:
+    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjZkYjQyM2JmNjY2ZmNjZWMxMjM0OCIsImlhdCI6MTY5MDEzNzc5OSwiZXhwIjoxNjkwMzk2OTk5fQ.NFnZ5Ti3IYGPKnCopVsnAROfiWt_317R4d7UdTqiyVY",
+    //   },
+    // })
+    //   .then(async (response) => {
+    //     const currentUser = await response.json();
+    //     console.log(currentUser);
+    //   })
+    //   .catch((error) => console.log({ error: error.message }));
+  }, []);
   return (
     <div
       className="container d-flex align-items-center justify-content-center"
@@ -27,14 +76,28 @@ const Index = () => {
               <ThemeHeader title={textHeading} />
             </div>
             <div className="col-6">
-              <InputField name="username" type="text" />
+              <InputField
+                name="username"
+                type="text"
+                value={usernameValue}
+                clickTrigger={handleUserName}
+              />
             </div>
             <div className="col-6">
-              <InputField name="password" type="password" />
+              <InputField
+                name="password"
+                type="password"
+                value={passwordValue}
+                clickTrigger={handlePassword}
+              />
             </div>
             <div className="col-12 ">
               <div className="float-end">
-                <ThemeButton textName="Sign in" type="submit" />
+                <ThemeButton
+                  textName="Sign in"
+                  type="submit"
+                  clickTrigger={handleSubmit}
+                />
               </div>
             </div>
           </form>
@@ -49,6 +112,8 @@ const Index = () => {
               <i className="ri-arrow-left-line "></i>
               back
             </button>
+
+            <p className="text-white">token</p>
           </div>
         </div>
       </div>

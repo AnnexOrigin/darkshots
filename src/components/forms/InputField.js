@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const InputField = ({ name, type }) => {
+const InputField = ({ name, type, clickTrigger }) => {
   const inputStyle = {
     outline: 0,
     backgroundColor: "transparent",
@@ -24,6 +24,7 @@ const InputField = ({ name, type }) => {
         type={type}
         className="form-control input-field"
         style={inputStyle}
+        onChange={clickTrigger}
       />
     </div>
   );
