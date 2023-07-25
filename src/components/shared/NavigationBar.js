@@ -7,12 +7,28 @@ const NavigationBar = ({ links, position }) => {
   const [isAdmin, setIsAdmin] = useState(position);
   const navLinkRef = useRef(null); //in-progress adding useRef hook
   const [activeItem, setActiveItem] = useState(null);
+  const [activeUser, setActiveUser] = useState(null);
+  const currentUserAPI = "http://localhost:3001/api/user/current-user";
+  const signoutUserAPI = "http://localhost:3001/api/user/logout";
 
   const handleLogin = (event) => {
     window.location.href = window.origin + "/signin";
   };
   const handleRegister = (event) => {
     window.location.href = window.origin + "/register";
+  };
+  const handleLogout = (event) => {
+    fetch(signoutUserAPI, {
+      method: "post",
+      credentials: "include",
+    })
+      .then(async (response) => {
+        if (response.status == 200) {
+          const status = await response.json();
+          setActiveUser(null);
+        }
+      })
+      .catch((error) => console.log({ error: error.message }));
   };
   const handleItemClick = (event) => {
     if (activeItem) {
@@ -26,6 +42,27 @@ const NavigationBar = ({ links, position }) => {
     objectFit: "cover",
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetch(currentUserAPI, {
+          method: "post",
+          credentials: "include",
+        })
+          .then(async (response) => {
+            if (response.status == 200) {
+              const data = await response.json();
+              setActiveUser(data);
+            }
+          })
+          .catch((error) => console.log({ error: error.message }));
+      } catch (error) {
+        console.log({ message: error.message });
+      }
+    };
+    fetchData();
+  });
+
   return (
     <>
       {isAdmin === "true" ? (
@@ -35,6 +72,7 @@ const NavigationBar = ({ links, position }) => {
           className="navbar  navbar-expand-lg navbar-dark fixed-top shadow-sm px-5"
           style={{ zIndex: "3", backgroundColor: "rgba(0,0,0,0.5)" }}
         >
+<<<<<<< HEAD
           <Link className="navbar-brand " to="/">
             <img src={logo} className="img img-fluid" style={logoImage} />
           </Link>
@@ -148,6 +186,68 @@ const NavigationBar = ({ links, position }) => {
         </nav>
       )}
     </>
+=======
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto my-auto" ref={navLinkRef}>
+            {navLinks.length > 0
+              ? navLinks.map((navLink) => {
+                  return (
+                    <li
+                      key={navLink.navId}
+                      className="nav-item"
+                      onClick={handleItemClick}
+                    >
+                      <Link
+                        className="nav-link  text-uppercase"
+                        to={navLink.redirectTo}
+                        style={{ fontFamily: "Agdasima-Bold" }}
+                      >
+                        {navLink.name}
+                      </Link>
+                    </li>
+                  );
+                })
+              : ``}
+          </ul>
+          {activeUser != null ? (
+            <ul className="navbar-nav ">
+              <li className="nav-item dropdown">
+                <Link
+                  className="nav-link dropdown-toggle text-white  text-uppercase"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style={{ fontFamily: "Agdasima-Bold" }}
+                >
+                  {activeUser.username}
+                </Link>
+                <ul className="dropdown-menu">
+                  <li>
+                    <ThemeButton
+                      textName="Logout"
+                      clickTrigger={handleLogout}
+                    />
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          ) : (
+            <>
+              <ThemeButton textName="Register" clickTrigger={handleRegister} />
+              <ThemeButton
+                textName="Sign in"
+                primary={false}
+                clickTrigger={handleLogin}
+              />
+            </>
+          )}
+        </div>
+      </>
+    </nav>
+>>>>>>> 3e8d07268c6a4919d107bc6eb8c10d2f9454c279
   );
 };
 
