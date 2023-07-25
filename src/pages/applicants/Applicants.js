@@ -1,45 +1,61 @@
 import React from "react";
+import ContentHeader from "../../components/shared/ContentHeader";
+import ContentBody from "../../components/shared/ContentBody";
+import SimpleButton from "../../components/buttons/SimpleButton";
+import SimpleTable from "../../components/table/SimpleTable";
 const Applicants = () => {
   const sectionBody = { marginTop: "58px" };
   const sectionTitle = "Applicants";
   const tableHeaders = [
-    { columName: "Name" },
-    { columName: "Category" },
-    { columName: "Percentage" },
-    { columName: "Remarks" },
-    { columName: "Color" },
+    { columnName: "id" },
+    { columnName: "first name" },
+    { columnName: "middle name" },
+    { columnName: "last name" },
+    { columnName: "email" },
+    { columnName: "contact number" },
+    { columnName: "preffered position" },
+    { columnName: "file name" },
+    { columnName: "action" },
   ];
   const tableRows = [
     {
-      name: "Juan Dela Cruz",
-      category: "Earthquake",
-      percentage: "50%",
-      remarks: "unsatisfactory",
-      color: "yellow",
-    },
-    {
-      name: "Cardo Dimagiba",
-      category: "Fire",
-      percentage: "30%",
-      remarks: "urgent",
-      color: "red",
-    },
-    {
-      name: "Daniel Cassanova",
-      category: "Typhoon",
-      percentage: "80%",
-      remarks: "satisfactory",
-      color: "green",
+      id: "1",
+      firstName: "1",
+      middleName: "1",
+      lastName: "1",
+      email: "1",
+      contactNumber: "1",
+      prefferedPosition: "1",
+      fileName: "1",
     },
   ];
   const tableHeadContent = "applicantsHeads";
   const tableBodyContent = "applicantsRows";
   return (
     <>
-      <div className="container text-light">
-        <div>sidebar</div>
-        <div>section</div>
-      </div>
+      {/* Content Header */}
+      <ContentHeader
+        title={"Applicants"}
+        rightArea={
+          <div className="col-4">
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              placeholder="search"
+            />
+          </div>
+        }
+      />
+
+      {/* Content Body */}
+      <ContentBody>
+        <SimpleTable
+          heads={tableHeaders}
+          rows={tableRows}
+          tableHeadContent={tableHeadContent}
+          tableBodyContent={tableBodyContent}
+        />
+      </ContentBody>
     </>
   );
 };

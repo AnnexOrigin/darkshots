@@ -116,8 +116,8 @@ const AccountSettings = () => {
       position: "admin",
     },
   ];
-  const tableHeadContent = "accountHeads";
-  const tableBodyContent = "accountRows";
+  const tableHeadContent = "accountsHeads";
+  const tableBodyContent = "accountsRows";
   return (
     <>
       {/* Content Header */}

@@ -3,14 +3,58 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
   return (
     <table className="table table-sm table-hover table-responsive">
       <thead className="align-end text-uppercase ">
-        {tableHeadContent === "accountHeads"
+        {tableHeadContent === "accountsHeads"
           ? heads.map((th) => {
               return (
                 <>
                   <th
                     key={th.columnName}
-                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary"
-                  >
+                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
+                    <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
+                      {th.columnName}
+                    </div>
+                  </th>
+                </>
+              );
+            })
+          : ""}
+        {tableHeadContent === "applicantsHeads"
+          ? heads.map((th) => {
+              return (
+                <>
+                  <th
+                    key={th.columnName}
+                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
+                    <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
+                      {th.columnName}
+                    </div>
+                  </th>
+                </>
+              );
+            })
+          : ""}
+        {tableHeadContent === "clientsHeads"
+          ? heads.map((th) => {
+              return (
+                <>
+                  <th
+                    key={th.columnName}
+                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
+                    <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
+                      {th.columnName}
+                    </div>
+                  </th>
+                </>
+              );
+            })
+          : ""}
+        {tableHeadContent === "postsHeads"
+          ? heads.map((th) => {
+              return (
+                <>
+                  <th
+                    key={th.columnName}
+                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
                     <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
                       {th.columnName}
                     </div>
@@ -21,14 +65,13 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
           : ""}
       </thead>
       <tbody>
-        {tableBodyContent === "accountRows"
+        {tableBodyContent === "accountsRows"
           ? rows.map((td) => {
               return (
                 <>
                   <tr
                     key={td.id}
-                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold "
-                  >
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
                     <td>{td.id}</td>
                     <td>{td.firstName}</td>
                     <td>{td.middleName}</td>
@@ -36,7 +79,67 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
                     <td>{td.email}</td>
                     <td>{td.contactNumber}</td>
                     <td>{td.position}</td>
-                    <td>{td.action}</td>
+                    <td>{/* Place function here */}</td>
+                  </tr>
+                </>
+              );
+            })
+          : ""}
+        {tableBodyContent === "applicantsRows"
+          ? rows.map((td) => {
+              return (
+                <>
+                  <tr
+                    key={td.id}
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                    <td>{td.id}</td>
+                    <td>{td.firstName}</td>
+                    <td>{td.middleName}</td>
+                    <td>{td.lastName}</td>
+                    <td>{td.contactNumber}</td>
+                    <td>{td.email}</td>
+                    <td>{td.prefferedPosition}</td>
+                    <td>{td.fileName}</td>
+                    <td>{/* Place function here */}</td>
+                  </tr>
+                </>
+              );
+            })
+          : ""}
+        {tableBodyContent === "clientsRows"
+          ? rows.map((td) => {
+              return (
+                <>
+                  <tr
+                    key={td.id}
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                    <td>{td.id}</td>
+                    <td>{td.firstName}</td>
+                    <td>{td.middleName}</td>
+                    <td>{td.lastName}</td>
+                    <td>{td.contactNumber}</td>
+                    <td>{td.email}</td>
+                    <td>{td.description}</td>
+                    <td>{/* Place function here */}</td>
+                  </tr>
+                </>
+              );
+            })
+          : ""}
+        {tableBodyContent === "postsRows"
+          ? rows.map((td) => {
+              return (
+                <>
+                  <tr
+                    key={td.id}
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                    <td>{td.id}</td>
+                    <td>{td.author}</td>
+                    <td>{td.jobType}</td>
+                    <td>{td.requirements}</td>
+                    <td>{td.description}</td>
+                    <td>{td.dateCreated}</td>
+                    <td>{/* Place function here */}</td>
                   </tr>
                 </>
               );
