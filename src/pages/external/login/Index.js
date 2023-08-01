@@ -51,8 +51,7 @@ const Index = () => {
   return (
     <div
       className="container d-flex align-items-center justify-content-center"
-      style={loginContent}
-    >
+      style={loginContent}>
       <div className="row">
         <div className="col-12 ">
           <form method="post" action="" className="row">
@@ -91,8 +90,7 @@ const Index = () => {
             <button
               onClick={handleBack}
               className="btn btn-transparent text-white text-uppercase rounded-0"
-              style={{ fontFamily: "Agdasima-Bold" }}
-            >
+              style={{ fontFamily: "Agdasima-Bold" }}>
               <i className="ri-arrow-left-line "></i>
               back
             </button>

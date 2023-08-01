@@ -18,8 +18,7 @@ const Index = () => {
   return (
     <div
       className="row align-items-center landing-section"
-      style={landingContent}
-    >
+      style={landingContent}>
       <div className="col-7">
         <ThemeHeader title={textHeading} breakWord={2} />
         <ThemeButton textName="Inquire Now" />

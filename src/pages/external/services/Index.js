@@ -45,8 +45,7 @@ const Index = () => {
   return (
     <div
       className="row align-items-center services-content"
-      style={servicesContent}
-    >
+      style={servicesContent}>
       <div className="col-lg-6 col-md-6, col-sm-12 col-12">
         <ThemeHeader title={textHeading} />
         <div>

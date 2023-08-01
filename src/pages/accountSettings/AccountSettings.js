@@ -125,17 +125,13 @@ const AccountSettings = () => {
         title={"Account Settings"}
         rightArea={[
           <SimpleButton
-            size="sm"
             color="dark"
             label={"Create New User"}
-            classes={"text-light rounded-0 "}
+            classes={"rounded-0 "}
+            icon={<i class="bi bi-person-plus-fill"></i>}
           />,
           <div className="col-4">
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              placeholder="search"
-            />
+            <input type="text" className="form-control " placeholder="search" />
           </div>,
         ]}
       />

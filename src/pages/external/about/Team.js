@@ -30,8 +30,7 @@ const Team = ({ items, itemCenter, image, title, subTitle }) => {
             image={cardList.image}
             title={cardList.name}
             subTitle={cardList.position}
-            style={fontShadow}
-          ></CardsInnerText>
+            style={fontShadow}></CardsInnerText>
         );
       })}
     </div>

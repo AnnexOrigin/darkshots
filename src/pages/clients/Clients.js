@@ -72,11 +72,7 @@ const Clients = () => {
         title={"Clients"}
         rightArea={
           <div className="col-4">
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              placeholder="search"
-            />
+            <input type="text" className="form-control " placeholder="search" />
           </div>
         }
       />
