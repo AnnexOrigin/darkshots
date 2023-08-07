@@ -22,7 +22,7 @@ const InputField = ({ name, type, clickTrigger }) => {
       <label className="form-label text-white text-uppercase">{name}</label>
       <input
         type={type}
-        className="form-control input-field"
+        className="form-control form-control-sm input-field"
         style={inputStyle}
         onChange={clickTrigger}
       />

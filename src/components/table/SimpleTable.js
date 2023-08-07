@@ -1,60 +1,16 @@
 import React from "react";
-const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
+const SimpleTable = ({ heads, rows, tableBodyContent }) => {
   return (
     <table className="table table-sm table-hover table-responsive">
       <thead className="align-end text-uppercase ">
-        {tableHeadContent === "accountsHeads"
+        {heads != null
           ? heads.map((th) => {
               return (
                 <>
                   <th
                     key={th.columnName}
-                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
-                    <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
-                      {th.columnName}
-                    </div>
-                  </th>
-                </>
-              );
-            })
-          : ""}
-        {tableHeadContent === "applicantsHeads"
-          ? heads.map((th) => {
-              return (
-                <>
-                  <th
-                    key={th.columnName}
-                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
-                    <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
-                      {th.columnName}
-                    </div>
-                  </th>
-                </>
-              );
-            })
-          : ""}
-        {tableHeadContent === "clientsHeads"
-          ? heads.map((th) => {
-              return (
-                <>
-                  <th
-                    key={th.columnName}
-                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
-                    <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
-                      {th.columnName}
-                    </div>
-                  </th>
-                </>
-              );
-            })
-          : ""}
-        {tableHeadContent === "postsHeads"
-          ? heads.map((th) => {
-              return (
-                <>
-                  <th
-                    key={th.columnName}
-                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary">
+                    className="th-fw-bold text-center p-0 sticky-top th-bg-secondary"
+                  >
                     <div className="col-12 th-fw-bold text-centerpy-2 th-bg-secondary">
                       {th.columnName}
                     </div>
@@ -71,7 +27,8 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
                 <>
                   <tr
                     key={td.id}
-                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold "
+                  >
                     <td>{td.id}</td>
                     <td>{td.firstName}</td>
                     <td>{td.middleName}</td>
@@ -91,7 +48,8 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
                 <>
                   <tr
                     key={td.id}
-                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold "
+                  >
                     <td>{td.id}</td>
                     <td>{td.firstName}</td>
                     <td>{td.middleName}</td>
@@ -112,7 +70,8 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
                 <>
                   <tr
                     key={td.id}
-                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold "
+                  >
                     <td>{td.id}</td>
                     <td>{td.firstName}</td>
                     <td>{td.middleName}</td>
@@ -132,7 +91,8 @@ const SimpleTable = ({ heads, rows, tableHeadContent, tableBodyContent }) => {
                 <>
                   <tr
                     key={td.id}
-                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold ">
+                    className="align-middle text-uppercaseth-fw-bold text-center th-fw-bold "
+                  >
                     <td>{td.id}</td>
                     <td>{td.author}</td>
                     <td>{td.jobType}</td>

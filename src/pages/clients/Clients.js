@@ -63,7 +63,6 @@ const Clients = () => {
       description: "admin",
     },
   ];
-  const tableHeadContent = "clientsHeads";
   const tableBodyContent = "clientsRows";
   return (
     <>
@@ -82,7 +81,6 @@ const Clients = () => {
         <SimpleTable
           heads={tableHeaders}
           rows={tableRows}
-          tableHeadContent={tableHeadContent}
           tableBodyContent={tableBodyContent}
         />
       </ContentBody>

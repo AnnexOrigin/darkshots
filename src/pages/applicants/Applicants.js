@@ -29,7 +29,6 @@ const Applicants = () => {
       fileName: "1",
     },
   ];
-  const tableHeadContent = "applicantsHeads";
   const tableBodyContent = "applicantsRows";
   return (
     <>
@@ -48,7 +47,6 @@ const Applicants = () => {
         <SimpleTable
           heads={tableHeaders}
           rows={tableRows}
-          tableHeadContent={tableHeadContent}
           tableBodyContent={tableBodyContent}
         />
       </ContentBody>

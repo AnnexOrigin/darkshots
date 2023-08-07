@@ -25,7 +25,6 @@ const Posts = () => {
       dateCreated: "1",
     },
   ];
-  const tableHeadContent = "postsHeads";
   const tableBodyContent = "postsRows";
   return (
     <>
@@ -51,7 +50,6 @@ const Posts = () => {
         <SimpleTable
           heads={tableHeaders}
           rows={tableRows}
-          tableHeadContent={tableHeadContent}
           tableBodyContent={tableBodyContent}
         />
       </ContentBody>

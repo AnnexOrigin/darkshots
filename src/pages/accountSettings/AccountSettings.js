@@ -116,7 +116,6 @@ const AccountSettings = () => {
       position: "admin",
     },
   ];
-  const tableHeadContent = "accountsHeads";
   const tableBodyContent = "accountsRows";
   return (
     <>
@@ -141,7 +140,6 @@ const AccountSettings = () => {
         <SimpleTable
           heads={tableHeaders}
           rows={tableRows}
-          tableHeadContent={tableHeadContent}
           tableBodyContent={tableBodyContent}
         />
       </ContentBody>
