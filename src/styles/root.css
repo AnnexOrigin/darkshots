@@ -13,12 +13,13 @@
 :root {
   --th-bg-primary: #151515;
   --th-bg-secondary: #d9d9d9;
+  --th-bg-dark: black;
 }
 * {
   font-family: "Agdasima-Regular";
 }
 body {
-  background-color: black;
+  background-color: var(--th-bg-dark);
 }
 .th-fs-1 {
   font-size: calc(72px);
