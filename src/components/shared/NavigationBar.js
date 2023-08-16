@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/brand/darkshot-logo.png";
 import ThemeButton from "../buttons/ThemeButton";
 const NavigationBar = ({ links, position }) => {
@@ -10,12 +10,12 @@ const NavigationBar = ({ links, position }) => {
   const [activeUser, setActiveUser] = useState(null);
   const currentUserAPI = "http://localhost:3001/api/user/current-user";
   const signoutUserAPI = "http://localhost:3001/api/user/logout";
-
+  const navigate = useNavigate();
   const handleLogin = (event) => {
-    window.location.href = window.origin + "/signin";
+    navigate("/signin");
   };
   const handleRegister = (event) => {
-    window.location.href = window.origin + "/register";
+    navigate("/register");
   };
   const handleLogout = (event) => {
     fetch(signoutUserAPI, {
@@ -70,7 +70,8 @@ const NavigationBar = ({ links, position }) => {
       ) : (
         <nav
           className="navbar  navbar-expand-lg navbar-dark fixed-top shadow-sm px-5"
-          style={{ zIndex: "3", backgroundColor: "rgba(0,0,0,0.5)" }}>
+          style={{ zIndex: "3", backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
           <Link className="navbar-brand " to="/">
             <img src={logo} className="img img-fluid" style={logoImage} />
           </Link>
@@ -83,12 +84,14 @@ const NavigationBar = ({ links, position }) => {
               data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
-              aria-label="Toggle navigation">
+              aria-label="Toggle navigation"
+            >
               <span className="navbar-toggler-icon"></span>
             </button>
             <div
               className="collapse navbar-collapse"
-              id="navbarSupportedContent">
+              id="navbarSupportedContent"
+            >
               <ul className="navbar-nav me-auto my-auto" ref={navLinkRef}>
                 {navLinks.length > 0
                   ? navLinks.map((navLink) => {
@@ -96,11 +99,13 @@ const NavigationBar = ({ links, position }) => {
                         <li
                           key={navLink.navId}
                           className="nav-item"
-                          onClick={handleItemClick}>
+                          onClick={handleItemClick}
+                        >
                           <Link
                             className="nav-link  text-uppercase"
                             to={navLink.redirectTo}
-                            style={{ fontFamily: "Agdasima-Bold" }}>
+                            style={{ fontFamily: "Agdasima-Bold" }}
+                          >
                             {navLink.name}
                           </Link>
                         </li>
@@ -108,8 +113,12 @@ const NavigationBar = ({ links, position }) => {
                     })
                   : ``}
               </ul>
-              <ThemeButton textName="Register" onClick={handleLogin} />
-              <ThemeButton textName="Sign in" primary={false} />
+              <ThemeButton textName="Register" clickTrigger={handleRegister} />
+              <ThemeButton
+                textName="Sign in"
+                primary={false}
+                clickTrigger={handleLogin}
+              />
             </div>
           </>
         </nav>
@@ -119,7 +128,8 @@ const NavigationBar = ({ links, position }) => {
       ) : (
         <nav
           className="navbar navbar-expand-lg navbar-dark fixed-top px-5"
-          style={{ zIndex: "3", backgroundColor: "rgba(0,0,0 )" }}>
+          style={{ zIndex: "3", backgroundColor: "rgba(0,0,0 )" }}
+        >
           <Link className="navbar-brand " to="admin/accountSettings">
             <img src={logo} className="img img-fluid" style={logoImage} />
           </Link>
@@ -132,12 +142,14 @@ const NavigationBar = ({ links, position }) => {
               data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
-              aria-label="Toggle navigation">
+              aria-label="Toggle navigation"
+            >
               <span className="navbar-toggler-icon"></span>
             </button>
             <div
               className="collapse navbar-collapse "
-              id="navbarSupportedContent">
+              id="navbarSupportedContent"
+            >
               <div className="col d-flex justify-content-lg-end justify-content-start">
                 <ul className="navbar-nav my-auto " ref={navLinkRef}>
                   {navLinks.length > 0
@@ -146,7 +158,8 @@ const NavigationBar = ({ links, position }) => {
                           return (
                             <li
                               key={navLink.navId}
-                              className="nav-item nav-link active  text-uppercase th-fw-bold pe-none">
+                              className="nav-item nav-link active  text-uppercase th-fw-bold pe-none"
+                            >
                               {navLink.name}
                             </li>
                           );
@@ -155,11 +168,13 @@ const NavigationBar = ({ links, position }) => {
                             <li
                               key={navLink.navId}
                               className="nav-item"
-                              onClick={handleItemClick}>
+                              onClick={handleItemClick}
+                            >
                               <Link
                                 className="nav-link  text-uppercase"
                                 to={navLink.redirectTo}
-                                style={{ fontFamily: "Agdasima-Bold" }}>
+                                style={{ fontFamily: "Agdasima-Bold" }}
+                              >
                                 {navLink.name}
                               </Link>
                             </li>

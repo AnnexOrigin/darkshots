@@ -1,69 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import TD from "../../components/table/Td";
 import ContentHeader from "../../components/shared/ContentHeader";
 import ContentBody from "../../components/shared/ContentBody";
 import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 
 const Clients = () => {
+  const [users, setUsers] = useState([]);
   // Table Properties
   const tableHeaders = [
     { columnName: "id" },
-    { columnName: "first name" },
-    { columnName: "middle name" },
-    { columnName: "last name" },
-    { columnName: "email" },
+    { columnName: "fullName" },
     { columnName: "contact number" },
     { columnName: "description" },
     { columnName: "action" },
   ];
-  const tableRows = [
-    {
-      id: 1,
-      firstName: "name",
-      middleName: "name",
-      lastName: "name",
-      contactNumber: "09565268452",
-      email: "name@gmail.com",
-      description: "admin",
-    },
-    {
-      id: 8,
-      firstName: "name",
-      middleName: "name",
-      lastName: "name",
-      email: "name@gmail.com",
-      contactNumber: "09565268452",
-      description: "admin",
-    },
-    {
-      id: 9,
-      firstName: "name",
-      middleName: "name",
-      lastName: "name",
-      email: "name@gmail.com",
-      contactNumber: "09565268452",
-      description: "admin",
-    },
-    {
-      id: 10,
-      firstName: "name",
-      middleName: "name",
-      lastName: "name",
-      email: "name@gmail.com",
-      contactNumber: "09565268452",
-      description: "admin",
-    },
-    {
-      id: 11,
-      firstName: "name",
-      middleName: "name",
-      lastName: "name",
-      email: "name@gmail.com",
-      contactNumber: "09565268452",
-      description: "admin",
-    },
-  ];
-  const tableBodyContent = "clientsRows";
+  const tableRows =
+    users.length > 0 ? (
+      users.map((td) => {
+        if (
+          td._id === "" &&
+          td.fullName === "" &&
+          td.contact === "" &&
+          td.description === "" &&
+          td.action === ""
+        ) {
+          return null;
+        }
+        // Validate
+        return (
+          <tr
+            key={td._id}
+            className="align-middle text-capitalize font-weight-bold text-center"
+          >
+            <TD classes={"col-1 td-ellipsis"} values={td._id} />
+            <TD classes={"td-ellipsis"} values={td.fullName} />
+            <TD classes={"td-ellipsis"} values={td.contact} />
+            <TD classes={"td-ellipsis"} values={td.description} />
+            <TD classes={"td-ellipsis"} values={td.action} />
+          </tr>
+        );
+      })
+    ) : (
+      <tr>
+        <td colSpan={8} className="text-center">
+          No clients
+        </td>
+      </tr>
+    );
   return (
     <>
       {/* Content Header */}
@@ -78,11 +62,7 @@ const Clients = () => {
 
       {/* Content Body */}
       <ContentBody>
-        <SimpleTable
-          heads={tableHeaders}
-          rows={tableRows}
-          tableBodyContent={tableBodyContent}
-        />
+        <SimpleTable heads={tableHeaders} rows={tableRows} />
       </ContentBody>
     </>
   );

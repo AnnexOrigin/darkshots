@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 import InputField from "../../../components/forms/InputField";
 import ThemeButton from "../../../components/buttons/ThemeButton";
 const Index = () => {
+  const navigate = useNavigate();
   const [nameValue, setNameValue] = useState(null);
   const [contactValue, setContactValue] = useState(null);
   const [usernameValue, setUsernameValue] = useState(null);
@@ -29,7 +31,7 @@ const Index = () => {
     setPasswordValue(event.target.value);
   };
   const handleBack = (e) => {
-    window.location.href = window.origin;
+    navigate(-1);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +69,8 @@ const Index = () => {
   return (
     <div
       className="container d-flex align-items-center justify-content-center"
-      style={registerContent}>
+      style={registerContent}
+    >
       <div className="row">
         <div className="col-12 ">
           <form method="post" action="" className="row">
@@ -122,7 +125,8 @@ const Index = () => {
             <button
               onClick={handleBack}
               className="btn btn-transparent text-white text-uppercase rounded-0"
-              style={{ fontFamily: "Agdasima-Bold" }}>
+              style={{ fontFamily: "Agdasima-Bold" }}
+            >
               <i className="ri-arrow-left-line "></i>
               back
             </button>

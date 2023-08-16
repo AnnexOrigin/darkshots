@@ -14,15 +14,15 @@ const InternalLayout = () => {
     },
     {
       navId: 2,
-      redirectTo: "#logout",
+      redirectTo: "/",
       name: "logout",
     },
   ];
   const sidebarLists = [
     {
       id: 1,
-      redirectTo: "admin/accountSettings",
-      name: "Accounts Settings",
+      redirectTo: "admin/accounts",
+      name: "Accounts",
     },
     { id: 2, redirectTo: "admin/applicants", name: "Applicants" },
     { id: 3, redirectTo: "admin/clients", name: "Clients" },
@@ -45,7 +45,8 @@ const InternalLayout = () => {
                     <Link
                       key={link.id}
                       to={link.redirectTo}
-                      className="list-group-item bg-transparent border border-0 link-light text-decoration-none lh-1">
+                      className="list-group-item bg-transparent border border-0 link-light text-decoration-none lh-1"
+                    >
                       {link.name}
                     </Link>
                   </>
@@ -55,7 +56,8 @@ const InternalLayout = () => {
           </aside>
           <section
             className="col-10 col-sm-9 col-md-9 col-lg-9 col-xl-10 pt-4 px-5 offset-2 offset-sm-3 offset-md-3 offset-lg-3 offset-xl-2"
-            style={contentHeight}>
+            style={contentHeight}
+          >
             <Outlet />
           </section>
         </div>

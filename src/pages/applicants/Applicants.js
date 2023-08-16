@@ -1,35 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import TD from "../../components/table/Td";
 import ContentHeader from "../../components/shared/ContentHeader";
 import ContentBody from "../../components/shared/ContentBody";
 import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 const Applicants = () => {
+  const [users, setUsers] = useState([]);
   const sectionBody = { marginTop: "58px" };
   const sectionTitle = "Applicants";
   const tableHeaders = [
     { columnName: "id" },
-    { columnName: "first name" },
-    { columnName: "middle name" },
-    { columnName: "last name" },
-    { columnName: "email" },
-    { columnName: "contact number" },
-    { columnName: "preffered position" },
-    { columnName: "file name" },
+    { columnName: "fullName name" },
+    { columnName: "contact" },
+    { columnName: "preffered_position" },
     { columnName: "action" },
   ];
-  const tableRows = [
-    {
-      id: "1",
-      firstName: "1",
-      middleName: "1",
-      lastName: "1",
-      email: "1",
-      contactNumber: "1",
-      prefferedPosition: "1",
-      fileName: "1",
-    },
-  ];
-  const tableBodyContent = "applicantsRows";
+  const tableRows =
+    users.length > 0 ? (
+      users.map((td) => {
+        if (
+          td._id === "" &&
+          td.fullName === "" &&
+          td.contact === "" &&
+          td.preffered_position === "" &&
+          td.action === ""
+        ) {
+          return null;
+        }
+        // Validate
+        return (
+          <tr key={td._id} className="align-middlefont-weight-bold text-center">
+            <TD classes={"col-1 td-ellipsis"} values={td._id} />
+            <TD classes={"td-ellipsis text-capitalize "} values={td.fullName} />
+            <TD classes={"td-ellipsis"} values={td.contact} />
+            <TD classes={"td-ellipsis"} values={td.preffered_position} />
+            <TD classes={"td-ellipsis"} values={td.action} />
+          </tr>
+        );
+      })
+    ) : (
+      <tr>
+        <td colSpan={5} className="text-center">
+          No applicants
+        </td>
+      </tr>
+    );
   return (
     <>
       {/* Content Header */}
@@ -44,11 +59,7 @@ const Applicants = () => {
 
       {/* Content Body */}
       <ContentBody>
-        <SimpleTable
-          heads={tableHeaders}
-          rows={tableRows}
-          tableBodyContent={tableBodyContent}
-        />
+        <SimpleTable heads={tableHeaders} rows={tableRows} />
       </ContentBody>
     </>
   );

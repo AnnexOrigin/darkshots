@@ -1,31 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import TD from "../../components/table/Td";
 import ContentHeader from "../../components/shared/ContentHeader";
 import ContentBody from "../../components/shared/ContentBody";
 import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 
 const Posts = () => {
+  const [users, setUsers] = useState([]);
   // Table Properties
   const tableHeaders = [
     { columnName: "id" },
     { columnName: "author" },
-    { columnName: "job type" },
+    { columnName: "job" },
     { columnName: "requirements" },
     { columnName: "description" },
-    { columnName: "date created" },
+    { columnName: "date_created" },
     { columnName: "action" },
   ];
-  const tableRows = [
-    {
-      id: "1",
-      author: "1",
-      jobType: "1",
-      requirements: "1",
-      description: "1",
-      dateCreated: "1",
-    },
-  ];
-  const tableBodyContent = "postsRows";
+  const tableRows =
+    users.length > 0 ? (
+      users.map((td) => {
+        if (
+          td._id === "" &&
+          td.fullName === "" &&
+          td.contact === "" &&
+          td.description === "" &&
+          td.action === ""
+        ) {
+          return null;
+        }
+        // Validate
+        return (
+          <tr
+            key={td._id}
+            className="align-middle text-capitalize font-weight-bold text-center"
+          >
+            <TD classes={"col-1 td-ellipsis"} values={td._id} />
+            <TD classes={"td-ellipsis"} values={td.author} />
+            <TD classes={"td-ellipsis"} values={td.job} />
+            <TD classes={"td-ellipsis"} values={td.requirements} />
+            <TD classes={"td-ellipsis"} values={td.description} />
+            <TD classes={"td-ellipsis"} values={td.date_created} />
+            <TD classes={"td-ellipsis"} values={td.action} />
+          </tr>
+        );
+      })
+    ) : (
+      <tr>
+        <td colSpan={7} className="text-center">
+          No posts
+        </td>
+      </tr>
+    );
   return (
     <>
       {/* Content Header */}
@@ -47,11 +73,7 @@ const Posts = () => {
 
       {/* Content Body */}
       <ContentBody>
-        <SimpleTable
-          heads={tableHeaders}
-          rows={tableRows}
-          tableBodyContent={tableBodyContent}
-        />
+        <SimpleTable heads={tableHeaders} rows={tableRows} />
       </ContentBody>
     </>
   );

@@ -39,3 +39,9 @@ body {
 .th-bg-secondary {
   background-color: var(--th-bg-secondary) !important;
 }
+.td-ellipsis {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
