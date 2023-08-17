@@ -41,7 +41,6 @@ const Index = () => {
         const data = await response.json();
         if (data.redirectUrl) {
           // Perform the redirection
-          alert("Welcome, " + data.user.fullName);
           navigate(data.redirectUrl);
         } else {
           alert(data.message);

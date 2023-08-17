@@ -4,6 +4,7 @@ import ContentBody from "../../components/shared/ContentBody";
 import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 import TD from "../../components/table/Td";
+import Modals from "./Modals";
 const Accounts = () => {
   // Table Properties
   const tableHeaders = [
@@ -117,6 +118,7 @@ const Accounts = () => {
             color="dark"
             label={"Create New User"}
             classes={"rounded-0 "}
+            modalLink={"createUserModal"}
             icon={<i class="bi bi-person-plus-fill"></i>}
           />,
           <div className="col-4">
@@ -129,11 +131,11 @@ const Accounts = () => {
           </div>,
         ]}
       />
-
       {/* Content Body */}
       <ContentBody>
         <SimpleTable heads={tableHeaders} rows={tableRows} />
       </ContentBody>
+      <Modals />
     </>
   );
 };
