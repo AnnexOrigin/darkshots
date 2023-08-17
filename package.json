@@ -7,7 +7,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
-    "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
     "jquery": "^3.7.0",
     "node": "^20.4.0",
@@ -42,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.1"
   }
 }
