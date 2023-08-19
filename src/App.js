@@ -4,10 +4,10 @@ import InternalLayout from "./pages/layouts/InternalLayout";
 import Login from "./pages/external/login/Index";
 import Register from "./pages/external/register/Index";
 import { Routes, Route } from "react-router-dom";
-import Accounts from "./pages/accounts/Accounts";
-import Applicants from "./pages/applicants/Applicants";
-import Clients from "./pages/clients/Clients";
-import Posts from "./pages/posts/Posts";
+import Accounts from "./pages/accounts/Index";
+import Applicants from "./pages/applicants/Index";
+import Clients from "./pages/clients/Index";
+import Posts from "./pages/posts/Index";
 
 function App() {
   return (

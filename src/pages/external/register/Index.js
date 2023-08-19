@@ -10,6 +10,7 @@ const Index = () => {
   const [usernameValue, setUsernameValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
   const apiEndpoint = "https://darkshot-server.onrender.com/api/user";
+  // const apiEndpoint = "http://localhost:3001/api/user";
   const registerContent = {
     minHeight: "100vh",
     width: "100vw",

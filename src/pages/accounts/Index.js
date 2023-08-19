@@ -7,6 +7,8 @@ import TD from "../../components/table/Td";
 import Modals from "./Modals";
 const Accounts = () => {
   const apiEndpoint = "https://darkshot-server.onrender.com/api/users";
+  // const apiEndpoint = "http://localhost:3001/api/users";
+
   // Table Properties
   const tableHeaders = [
     { columnName: "fullName" },
