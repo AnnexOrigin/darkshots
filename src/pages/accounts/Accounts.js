@@ -6,6 +6,7 @@ import SimpleTable from "../../components/table/SimpleTable";
 import TD from "../../components/table/Td";
 import Modals from "./Modals";
 const Accounts = () => {
+  const apiEndpoint = "https://darkshot-server.onrender.com/api/users";
   // Table Properties
   const tableHeaders = [
     { columnName: "fullName" },
@@ -16,7 +17,7 @@ const Accounts = () => {
   const [users, setUsers] = useState([]);
   async function fetchUsers() {
     try {
-      const response = await fetch("http://localhost:3001/api/users"); // Replace with your server URL
+      const response = await fetch(apiEndpoint); // Replace with your server URL
       const data = await response.json();
       setUsers(data);
     } catch (error) {
