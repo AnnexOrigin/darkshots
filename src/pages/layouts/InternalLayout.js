@@ -1,7 +1,6 @@
 import React from "react";
 import NavigationBar from "../../components/shared/NavigationBar";
-import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 const InternalLayout = () => {
   const containerStyle = {
     marginTop: "3.625rem",
