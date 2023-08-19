@@ -7,7 +7,7 @@ const Index = () => {
   const navigate = useNavigate();
   const [usernameValue, setUsernameValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
-  const apiEndpoint = "https://darkshot-server.onrender.com/api/user/login";
+  const apiEndpoint = "http://localhost:3001/api/user/login";
   const loginContent = {
     minHeight: "100vh",
     width: "100vw",
