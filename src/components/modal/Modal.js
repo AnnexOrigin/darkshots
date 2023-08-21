@@ -1,27 +1,30 @@
 import React from "react";
-
-const Modal = ({ title, id, show, onHide, children }) => {
+const Modal = ({ title, id, children, closeModal, backdrop }) => {
+  const isStatic = backdrop == "static";
   return (
     <>
       <div
-        className={`modal fade ${show ? "show" : ""}`}
+        class="modal fade"
         id={id}
-        tabIndex="-1"
-        aria-labelledby={`${id}Label`}
-        aria-hidden={!show}
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        {...(isStatic && {
+          "data-bs-backdrop": "static",
+          "data-bs-keyboard": "false",
+        })}
       >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id={`${id}Label`}>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
                 {title}
               </h1>
               <button
                 type="button"
-                className="btn-close"
+                class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                onClick={onHide}
               ></button>
             </div>
             {children}

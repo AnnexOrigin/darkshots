@@ -1,17 +1,19 @@
 import React from "react";
-import ExternalLayout from "./pages/layouts/ExternalLayout";
-import InternalLayout from "./pages/layouts/InternalLayout";
-import Login from "./pages/external/login/Index";
-import Register from "./pages/external/register/Index";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Test from "./pages/test/Index";
 import Accounts from "./pages/accounts/Index";
 import Applicants from "./pages/applicants/Index";
 import Clients from "./pages/clients/Index";
+import Login from "./pages/external/login/Index";
+import Register from "./pages/external/register/Index";
+import ExternalLayout from "./pages/layouts/ExternalLayout";
+import InternalLayout from "./pages/layouts/InternalLayout";
 import Posts from "./pages/posts/Index";
 
 function App() {
   return (
     <Routes>
+      <Route path="/test" element={<Test />} />
       <Route path="/" element={<ExternalLayout />} />
       <Route path="/signin" element={<Login />} />
       <Route path="/register" element={<Register />} />

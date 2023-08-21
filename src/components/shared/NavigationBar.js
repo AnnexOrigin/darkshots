@@ -102,6 +102,7 @@ const NavigationBar = ({ links, position }) => {
                           onClick={handleItemClick}
                         >
                           <Link
+                            key={navLink.navId}
                             className="nav-link  text-uppercase"
                             onClick={navLink.redirectTo}
                             style={{ fontFamily: "Agdasima-Bold" }}
@@ -171,6 +172,7 @@ const NavigationBar = ({ links, position }) => {
                               onClick={handleItemClick}
                             >
                               <Link
+                                key={navLink.navId}
                                 className="nav-link  text-uppercase"
                                 to={navLink.redirectTo}
                                 style={{ fontFamily: "Agdasima-Bold" }}

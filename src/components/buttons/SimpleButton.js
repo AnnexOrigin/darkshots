@@ -12,7 +12,7 @@ const SimpleButton = ({
   type,
 }) => {
   const hasModalLink = modalTarget != null;
-  const hadModalDismiss = modalDismiss != null;
+  const hadModalDismiss = modalDismiss != false;
   const hasAdditionalClasses = classes != null;
   const hasIcons = icon != null;
   const hasOnclick = onClick != null;
