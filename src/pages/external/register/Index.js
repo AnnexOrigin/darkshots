@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 import InputField from "../../../components/forms/InputField";
 import ThemeButton from "../../../components/buttons/ThemeButton";
+
 const Index = () => {
   const navigate = useNavigate();
   const [nameValue, setNameValue] = useState(null);
   const [contactValue, setContactValue] = useState(null);
   const [usernameValue, setUsernameValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
-  const apiEndpoint = "https://darkshot-server.onrender.com/api/user";
-  // const apiEndpoint = "http://localhost:3001/api/user";
+  const apiEndpoint = "http://localhost:3001/api/user";
   const registerContent = {
     minHeight: "100vh",
     width: "100vw",
@@ -58,10 +58,6 @@ const Index = () => {
       .finally(() => {
         setTimeout(() => {
           alert("success");
-          setNameValue("");
-          setContactValue("");
-          setUsernameValue("");
-          setPasswordValue("");
         }, 5000);
       });
   };

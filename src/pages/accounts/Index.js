@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ContentHeader from "../../components/shared/ContentHeader";
 import ContentBody from "../../components/shared/ContentBody";
 import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 import TD from "../../components/table/Td";
-import Modals from "./Modals";
 const Accounts = () => {
-  const apiEndpoint = "https://darkshot-server.onrender.com/api/users";
-  // const apiEndpoint = "http://localhost:3001/api/users";
-
+  const apiEndpoint = "http://localhost:3001/api/users";
+  const postApiEndpoint = "http://localhost:3001/api/user";
   // Table Properties
   const tableHeaders = [
     { columnName: "fullName" },
@@ -16,104 +14,74 @@ const Accounts = () => {
     { columnName: "username" },
     { columnName: "action" },
   ];
-  const [users, setUsers] = useState([]);
-  async function fetchUsers() {
+  // Table data
+  const [tableUsers, setTableUsers] = useState([]);
+  // Get specific row
+  const [rowData, setRowData] = useState([]);
+  // Modal Displays for CRUD functions
+  const [ViewShow, setViewShow] = useState(false);
+  const [ViewClose, setViewClose] = useState(true);
+  const handleViewShow = () => {
+    setViewShow(true);
+  };
+  const handleViewClose = () => {
+    setViewClose(true);
+  };
+  // Form values
+  const [name, setName] = useState(null);
+  const [contact, setContact] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  // setId for CRUD functions
+  const [id, setId] = useState(null);
+  // const handleClientName = (e) => {
+  //   setName(e.target.value);
+  // };
+  // const handleContact = (e) => {
+  //   setContact(e.target.value);
+  // };
+  // const handleUserName = (e) => {
+  //   setUsername(e.target.value);
+  // };
+  // const handlePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
+  // FUNCTIONS HERE
+  async function getTableData() {
     try {
       const response = await fetch(apiEndpoint); // Replace with your server URL
       const data = await response.json();
-      setUsers(data);
+      if (response.status == 200) {
+        setTableUsers(data);
+      } else {
+        alert("Table not displaying");
+      }
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   }
   useEffect(() => {
-    fetchUsers();
+    getTableData();
   }, []);
-  const handleEdit = async (userId) => {
-    alert(userId);
-    // try {
-    //   const response = await fetch("http://localhost:3001/api/users"); // Replace with your server URL
-    //   const data = await response.json();
-    //   console.table(data);
-    // } catch (error) {
-    //   console.error("Error fetching users:", error);
-    // }
-  };
-  const handleDelete = async (userId) => {
-    try {
-      const response = await fetch(`http://localhost:3001/api/user/${userId}`, {
-        method: "DELETE",
-      });
 
-      if (response.status === 200) {
-        // User deleted successfully
-        console.log("User deleted successfully");
-        fetchUsers();
-        // You might want to refresh your user list or update the UI here
-      } else if (response.status === 404) {
-        const data = await response.json();
-        console.log(data.message); // User not found
-      } else {
-        const data = await response.json();
-        console.log(data.message); // Error occurred
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error.message);
-    }
+  const handleAdd = () => {};
+  const handleView = () => {};
+  const handleEdit = () => {};
+  const handleDelete = () => {};
+  // ================================================================
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleShowModal = () => {
+    setModalVisible(true);
   };
-  const handleDeleteClick = (userId) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      handleDelete(userId);
-    }
+
+  const handleHideModal = () => {
+    setModalVisible(false);
   };
-  const tableRows =
-    users.length > 0 ? (
-      users.map((td) => {
-        // Validate
-        return (
-          <tr
-            key={td._id}
-            className="align-middle font-weight-bold text-center"
-          >
-            <TD classes={"td-ellipsis text-capitalize "} values={td.fullName} />
-            <TD classes={"td-ellipsis"} values={td.contact} />
-            <TD classes={"td-ellipsis"} values={td.username} />
-            <TD
-              classes={"col-2 td-ellipsis"}
-              values={
-                <div className="btn-group">
-                  <SimpleButton
-                    classes={"rounded-0"}
-                    onClick={() => {
-                      handleEdit(td._id);
-                    }}
-                    color={"dark"}
-                    label={"Edit"}
-                  />
-                  <SimpleButton
-                    classes={"rounded-0"}
-                    onClick={() => {
-                      handleDeleteClick(td._id);
-                    }}
-                    color={"dark"}
-                    label={"Delete"}
-                  />
-                </div>
-              }
-            />
-          </tr>
-        );
-      })
-    ) : (
-      <tr>
-        <td colSpan={4} className="text-center">
-          No accounts
-        </td>
-      </tr>
-    );
+  // ================================================================
   return (
     <>
-      {/* Content Header */}
+      {/* Users Modal */}
       <ContentHeader
         title={"Accounts"}
         rightArea={[
@@ -121,7 +89,10 @@ const Accounts = () => {
             color="dark"
             label={"Create New User"}
             classes={"rounded-0 "}
-            modalLink={"createUserModal"}
+            modalTarget={"userModal"}
+            onClick={() => {
+              handleShowModal();
+            }}
             icon={<i class="bi bi-person-plus-fill"></i>}
           />,
           <div className="col-4">
@@ -136,9 +107,69 @@ const Accounts = () => {
       />
       {/* Content Body */}
       <ContentBody>
-        <SimpleTable heads={tableHeaders} rows={tableRows} />
+        <SimpleTable
+          heads={tableHeaders}
+          rows={
+            tableUsers.length > 0 ? (
+              tableUsers.map((td) => {
+                // Validate
+                return (
+                  <tr
+                    key={td._id}
+                    className="align-middle font-weight-bold text-center"
+                  >
+                    <TD
+                      classes={"td-ellipsis text-capitalize "}
+                      values={td.fullName}
+                    />
+                    <TD classes={"td-ellipsis"} values={td.contact} />
+                    <TD classes={"td-ellipsis"} values={td.username} />
+                    <TD
+                      classes={"td-ellipsis"}
+                      values={
+                        <div className="btn-group">
+                          <SimpleButton
+                            classes={"rounded-0"}
+                            modalTarget={"updateModal"}
+                            onClick={() => {
+                              handleViewShow(setRowData(tableUsers));
+                            }}
+                            color={"dark"}
+                            label={"View"}
+                          />
+                          <SimpleButton
+                            classes={"rounded-0"}
+                            modalTarget={"updateModal"}
+                            onClick={() => {
+                              handleEdit(td._id);
+                            }}
+                            color={"dark"}
+                            label={"Edit"}
+                          />
+                          <SimpleButton
+                            classes={"rounded-0"}
+                            onClick={() => {
+                              handleDelete(td._id);
+                            }}
+                            color={"dark"}
+                            label={"Delete"}
+                          />
+                        </div>
+                      }
+                    />
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={4} className="text-center">
+                  No accounts
+                </td>
+              </tr>
+            )
+          }
+        />
       </ContentBody>
-      <Modals />
     </>
   );
 };

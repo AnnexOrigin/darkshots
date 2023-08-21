@@ -7,28 +7,31 @@ const SimpleButton = ({
   label,
   icon,
   onClick,
-  modalLink,
+  modalTarget,
   modalDismiss,
-  submitType,
+  type,
 }) => {
-  const hasModalLink = modalLink != null;
+  const hasModalLink = modalTarget != null;
   const hadModalDismiss = modalDismiss != null;
   const hasAdditionalClasses = classes != null;
   const hasIcons = icon != null;
+  const hasOnclick = onClick != null;
   return (
     <button
       className={`btn btn-sm btn-${color} d-flex align-items-center text-center gap-1 
       ${hasAdditionalClasses ? classes : ""} `}
       value={value}
-      onClick={onClick}
+      {...(hasOnclick && {
+        onClick: onClick,
+      })}
       {...(hasModalLink && {
         "data-bs-toggle": "modal",
-        "data-bs-target": `#${modalLink}`,
+        "data-bs-target": `#${modalTarget}`,
       })}
       {...(hadModalDismiss && {
         "data-bs-dismiss": "modal",
       })}
-      {...(submitType != null ? { type: submitType } : {})}
+      {...(type != null ? { type: type } : {})}
     >
       {label != null ? <span className="text-center">{label}</span> : null}
       {hasIcons ? icon : null}

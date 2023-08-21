@@ -1,29 +1,30 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-const Modal = ({ modalName, modalSize, modalTitle, modalContent }) => {
+const Modal = ({ title, id, show, onHide, children }) => {
   return (
     <>
       <div
-        class="modal fade"
-        id={`${modalName}`}
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
+        className={`modal fade ${show ? "show" : ""}`}
+        id={id}
+        tabIndex="-1"
+        aria-labelledby={`${id}Label`}
+        aria-hidden={!show}
       >
-        <div class={`modal-dialog ${modalSize != null ? modalSize : ""} `}>
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                {modalTitle}
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id={`${id}Label`}>
+                {title}
               </h1>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={onHide}
               ></button>
             </div>
-            {modalContent}
+            {children}
           </div>
         </div>
       </div>

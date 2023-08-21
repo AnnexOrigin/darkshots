@@ -42,26 +42,26 @@ const NavigationBar = ({ links, position }) => {
     objectFit: "cover",
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await fetch(currentUserAPI, {
-          method: "post",
-          credentials: "include",
-        })
-          .then(async (response) => {
-            if (response.status == 200) {
-              const data = await response.json();
-              setActiveUser(data);
-            }
-          })
-          .catch((error) => console.log({ error: error.message }));
-      } catch (error) {
-        console.log({ message: error.message });
-      }
-    };
-    fetchData();
-  });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       await fetch(currentUserAPI, {
+  //         method: "post",
+  //         credentials: "include",
+  //       })
+  //         .then(async (response) => {
+  //           if (response.status == 200) {
+  //             const data = await response.json();
+  //             setActiveUser(data);
+  //           }
+  //         })
+  //         .catch((error) => console.log({ error: error.message }));
+  //     } catch (error) {
+  //       console.log({ message: error.message });
+  //     }
+  //   };
+  //   fetchData();
+  // });
 
   return (
     <>
