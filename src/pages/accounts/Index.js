@@ -441,7 +441,7 @@ const Accounts = () => {
         {RowData && (
           <Modal.Body>
             Are you sure you want to delete
-            <span className="th-fw-bold">{RowData.fullName}</span>
+            <span className="th-fw-bold">{" " + RowData.fullName}</span>
           </Modal.Body>
         )}
         <Modal.Footer>
