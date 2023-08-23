@@ -10,7 +10,7 @@ const Index = () => {
   const [contactValue, setContactValue] = useState(null);
   const [usernameValue, setUsernameValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
-  const apiEndpoint = "http://localhost:3001/api/user";
+  const apiEndpoint = "https://darkshot-server.onrender.com/api";
   const registerContent = {
     minHeight: "100vh",
     width: "100vw",
@@ -36,7 +36,7 @@ const Index = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(apiEndpoint, {
+    await fetch(apiEndpoint + "/user", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
