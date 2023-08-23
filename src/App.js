@@ -13,7 +13,6 @@ import Test from "./pages/test/Index";
 function App() {
   return (
     <Routes>
-      <Route path="/test" element={<Test />} />
       <Route path="/" element={<ExternalLayout />} />
       <Route path="/signin" element={<Login />} />
       <Route path="/register" element={<Register />} />
