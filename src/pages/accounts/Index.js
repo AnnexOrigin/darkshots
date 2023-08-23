@@ -5,10 +5,9 @@ import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 import TD from "../../components/table/Td";
 import Modal from "../../components/modal/Modal";
-import hideModal from "../../components/modal/HideModal";
 const Accounts = () => {
   // API url
-  const apiEndpoint = "https://darkshot-server.onrender.com/api/";
+  const apiEndpoint = "http://localhost:3001/api";
   // Table Properties
   const tableHeaders = [
     { columnName: "fullName" },
@@ -16,33 +15,41 @@ const Accounts = () => {
     { columnName: "username" },
     { columnName: "action" },
   ];
+  // Modal Togglers
+  const [showEditModal, setShowEditModal] = useState(false);
+  const openEditModal = () => {
+    setShowEditModal(true);
+  };
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
   // Table data
   const [tableUsers, setTableUsers] = useState([]);
   // Get specific row
   const [RowData, SetRowData] = useState([]);
   // Form values
-  const [name, setName] = useState(null);
-  const [contact, setContact] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [nameValue, setNameValue] = useState("");
+  const [contactValue, setContactValue] = useState("");
+  const [usernameValue, setUsernameValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
   // setId for CRUD functions
-  const [id, setId] = useState(null);
+  const [id, setId] = useState("");
   const handleName = (e) => {
-    setName(e.target.value);
+    setNameValue(e.target.value);
   };
   const handleContact = (e) => {
-    setContact(e.target.value);
+    setContactValue(e.target.value);
   };
   const handleUserName = (e) => {
-    setUsername(e.target.value);
+    setUsernameValue(e.target.value);
   };
   const handlePassword = (e) => {
-    setPassword(e.target.value);
+    setPasswordValue(e.target.value);
   };
   // FUNCTIONS HERE
   async function getTableData() {
     try {
-      const response = await fetch(apiEndpoint + `users`); // Replace with your server URL
+      const response = await fetch(apiEndpoint + `/users`); // Replace with your server URL
       const data = await response.json();
       if (response.status == 200) {
         setTableUsers(data);
@@ -57,31 +64,39 @@ const Accounts = () => {
     getTableData();
   }, []);
   const clearFields = () => {
-    setName("");
-    setContact("");
-    setUsername("");
-    setPassword("");
+    setNameValue("");
+    setContactValue("");
+    setUsernameValue("");
+    setPasswordValue("");
   };
   // Handle displays
-
   const handleViewUpdate = () => {
-    setName(RowData.fullName);
-    setContact(RowData.contact);
-    setUsername(RowData.username);
-    setPassword(RowData.password);
+    console.log("Before Update");
+    console.log(id);
+    console.log(nameValue);
+    console.log(contactValue);
+    console.log(usernameValue);
+    console.log(passwordValue);
   };
-  const handleViewCreate = () => {};
+  const handleViewCreate = () => {
+    console.log("Before Create");
+    console.log(id);
+    console.log(nameValue);
+    console.log(contactValue);
+    console.log(usernameValue);
+    console.log(passwordValue);
+  };
   // CRUD submissions
   const handleCreateSubmit = async (event) => {
     event.preventDefault();
     const body = JSON.stringify({
-      fullName: name,
-      contact: contact,
-      username: username,
-      password: password,
+      fullName: nameValue,
+      contact: contactValue,
+      username: usernameValue,
+      password: passwordValue,
     });
     try {
-      const postUrl = apiEndpoint + "user";
+      const postUrl = apiEndpoint + "/user";
       const response = await fetch(postUrl, {
         method: "POST",
         headers: {
@@ -92,7 +107,10 @@ const Accounts = () => {
 
       if (response.ok) {
         const updatedData = await response.json();
-        alert("Updated data:", updatedData);
+        alert("Updated data:" + updatedData);
+        const form = document.getElementById("formCreate");
+        form.reset();
+        getTableData();
       } else {
         console.error("Error updating data:", response.statusText);
       }
@@ -102,7 +120,7 @@ const Accounts = () => {
   };
   const handleDelete = async () => {
     const userId = RowData._id;
-    const deleteUrl = apiEndpoint + `user/${userId}`;
+    const deleteUrl = apiEndpoint + `/user/${userId}`;
     try {
       const response = await fetch(deleteUrl, {
         method: "DELETE",
@@ -119,6 +137,40 @@ const Accounts = () => {
       console.error("Error fetching users:", error);
     }
   };
+  const handleUpdateSubmit = async (event) => {
+    event.preventDefault();
+    const body = {};
+
+    if (nameValue) body.fullName = nameValue;
+    if (contactValue) body.contact = contactValue;
+    if (usernameValue) body.username = usernameValue;
+    if (passwordValue) body.password = passwordValue;
+
+    try {
+      const postUrl = apiEndpoint + "/user/" + id;
+      const response = await fetch(postUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        const updatedData = await response.json();
+        alert("Updated data:" + updatedData);
+        const form = document.getElementById("formUpdate");
+        form.reset();
+        // hideModal("updateModal");
+        getTableData();
+      } else {
+        console.error("Error updating data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };
+
   // ================================================================
 
   // ================================================================
@@ -132,7 +184,10 @@ const Accounts = () => {
             color="dark"
             label={"Create New User"}
             classes={"rounded-0 "}
-            modalTarget={"addModal"}
+            modalTarget={"createModal"}
+            onClick={() => {
+              handleViewCreate();
+            }}
             icon={<i class="bi bi-person-plus-fill"></i>}
           />,
           <div className="col-4">
@@ -179,10 +234,12 @@ const Accounts = () => {
                           />
                           <SimpleButton
                             classes={"rounded-0"}
-                            modalTarget={"editModal"}
+                            modalTarget={"updateModal"}
                             onClick={() => {
-                              handleViewUpdate();
-                              SetRowData(td);
+                              openEditModal(() => {
+                                SetRowData(td);
+                                setId(td._id);
+                              });
                             }}
                             color={"dark"}
                             label={"Edit"}
@@ -214,34 +271,46 @@ const Accounts = () => {
       </ContentBody>
       <Modal title={"View User"} id={"viewModal"}>
         <div className="modal-body">
-          <input
-            type="text"
-            name=""
-            value={RowData.fullName}
-            className="form-control mb-2"
-            readOnly
-          />
-          <input
-            type="text"
-            name=""
-            value={RowData.contact}
-            className="form-control mb-2"
-            readOnly
-          />
-          <input
-            type="text"
-            name=""
-            value={RowData.username}
-            className="form-control mb-2"
-            readOnly
-          />
-          <input
-            type="text"
-            name=""
-            value={RowData.password}
-            className="form-control mb-2"
-            readOnly
-          />
+          <div className="input-group mb-2">
+            <span className="input-group-text">Full Name</span>
+            <input
+              type="text"
+              name=""
+              value={RowData.fullName}
+              className="form-control"
+              readOnly
+            />
+          </div>
+          <div className="input-group mb-2">
+            <span className="input-group-text">Contact/Email</span>
+            <input
+              type="text"
+              name=""
+              value={RowData.contact}
+              className="form-control"
+              readOnly
+            />
+          </div>
+          <div className="input-group mb-2">
+            <span className="input-group-text">Username</span>
+            <input
+              type="text"
+              name=""
+              value={RowData.username}
+              className="form-control"
+              readOnly
+            />
+          </div>
+          <div className="input-group mb-2">
+            <span className="input-group-text">Password</span>
+            <input
+              type="text"
+              name=""
+              value={RowData.password}
+              className="form-control"
+              readOnly
+            />
+          </div>
         </div>
         <div className="modal-footer">
           <SimpleButton
@@ -252,41 +321,58 @@ const Accounts = () => {
           />
         </div>
       </Modal>
-      <Modal title={"Create User"} id={"addModal"} backdrop={"static"}>
+      <Modal title={"Create User"} id={"createModal"} backdrop={"static"}>
         <form
+          id="formCreate"
           className="needs-validation"
           onSubmit={handleCreateSubmit}
           noValidate={false}
         >
           <div className="modal-body">
-            <input
-              type="text"
-              name=""
-              onChange={handleName}
-              className="form-control mb-2"
-              required
-            />
-            <input
-              type="text"
-              name=""
-              onChange={handleContact}
-              className="form-control mb-2"
-              required
-            />
-            <input
-              type="text"
-              name=""
-              onChange={handleUserName}
-              className="form-control mb-2"
-              required
-            />
-            <input
-              type="password"
-              name=""
-              onChange={handlePassword}
-              className="form-control mb-2"
-              required
-            />
+            <div className="input-group mb-2">
+              <span className="input-group-text">Full Name</span>
+              <input
+                type="text"
+                name=""
+                defaultValue={""}
+                onChange={handleName}
+                className="form-control"
+                required
+              />
+            </div>
+            <div className="input-group mb-2">
+              <span className="input-group-text">Contact/Email</span>
+              <input
+                type="text"
+                name=""
+                defaultValue={""}
+                onChange={handleContact}
+                className="form-control  "
+                required
+              />
+            </div>
+            <div className="input-group mb-2">
+              <span className="input-group-text">Username</span>
+              <input
+                type="text"
+                name=""
+                defaultValue={""}
+                onChange={handleUserName}
+                className="form-control "
+                required
+              />
+            </div>
+            <div className="input-group mb-2">
+              <span className="input-group-text">Password</span>
+              <input
+                type="password"
+                name=""
+                defaultValue={""}
+                onChange={handlePassword}
+                className="form-control "
+                required
+              />
+            </div>
           </div>
           <div className="modal-footer">
             <button
@@ -302,54 +388,83 @@ const Accounts = () => {
           </div>
         </form>
       </Modal>
-
-      <Modal title={"Edit User"} id={"editModal"} backdrop={"static"}>
-        <form className="needs-valdiation" noValidate>
-          <div className="modal-body">
-            <input
-              type="text"
-              // value={name}
-              defaultValue={RowData.fullName}
-              onChange={handleName}
-              className="form-control mb-2"
-              required
-            />
-            <input
-              type="text"
-              // value={contact}
-              defaultValue={RowData.contact}
-              onChange={handleContact}
-              className="form-control mb-2"
-              required
-            />
-            <input
-              type="text"
-              // value={username}
-              defaultValue={RowData.username}
-              onChange={handleUserName}
-              className="form-control mb-2"
-              required
-            />
-            <input
-              type="password"
-              // value={password}
-              defaultValue={RowData.password}
-              onChange={handlePassword}
-              className="form-control mb-2"
-              required
-            />
-          </div>
-          <div className="modal-footer">
-            <SimpleButton
-              type={"button"}
-              color={"secondary"}
-              modalDismiss={true}
-              label={"Cancel"}
-            />
-            <SimpleButton type={"submit"} color={"primary"} label={"Update"} />
-          </div>
-        </form>
-      </Modal>
+      {showEditModal && (
+        <Modal
+          title={"Update User"}
+          id={"updateModal"}
+          // backdrop={"static"}
+          showModal={showEditModal}
+          closeModal={closeEditModal}
+        >
+          <form
+            id="formUpdate"
+            className="needs-validation"
+            onSubmit={handleUpdateSubmit}
+            noValidate={false}
+          >
+            <div className="modal-body">
+              <div className="input-group mb-2">
+                <span className="input-group-text">Full Name</span>
+                <input
+                  type="text"
+                  name="name"
+                  defaultValue={RowData.fullName}
+                  onChange={handleName}
+                  className="form-control"
+                  required
+                />
+              </div>
+              <div className="input-group mb-2">
+                <span className="input-group-text">Contact/Email</span>
+                <input
+                  type="text"
+                  name="contact"
+                  defaultValue={RowData.contact}
+                  onChange={handleContact}
+                  className="form-control  "
+                  required
+                />
+              </div>
+              <div className="input-group mb-2">
+                <span className="input-group-text">Username</span>
+                <input
+                  type="text"
+                  name="username"
+                  defaultValue={RowData.username}
+                  onChange={handleUserName}
+                  className="form-control "
+                  required
+                />
+              </div>
+              <div className="input-group mb-2">
+                <span className="input-group-text">Password</span>
+                <input
+                  type="password"
+                  name="password"
+                  defaultValue={RowData.password}
+                  onChange={handlePassword}
+                  className="form-control "
+                  required
+                />
+              </div>
+              <div className="input-group d-flex justify-content-end">
+                <button type="submit" className="btn btn-success ">
+                  Update User
+                </button>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
       <Modal title={"Delete User"} id={"deleteModal"} closeModal={true}>
         <div className="modal-body">
           Are you sure you want to delete{" "}

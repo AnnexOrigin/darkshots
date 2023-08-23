@@ -1,25 +1,30 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import "../../styles/customModal.css";
 
-const Index = () => {
-  const [input, setInput] = useState("");
+const Modal = ({ isOpen, onClose, title, content }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
-    <>
-      <div className=" bg-light" style={{ height: "100vh", width: "100vw" }}>
-        <div className="container">
-          <input
-            type="text"
-            className="form-control"
-            placeholder={"Hey"}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <div id="display">{input}</div>
-        </div>
-      </div>
-    </>
+    <div className="app">
+      <button className="open-modal-btn" onClick={openModal}>
+        Open Modal
+      </button>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title="Modal Title"
+        content="This is the modal content."
+      />
+    </div>
   );
 };
 
-export default Index;
+export default Modal;
