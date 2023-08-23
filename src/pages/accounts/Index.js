@@ -8,7 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 const Accounts = () => {
   // API url
-  const apiEndpoint = "http://localhost:3001/api";
+  const apiEndpoint = "https://darkshot-server.onrender.com/api";
   // Table data, Properties
   const tableHeaders = [
     { columnName: "fullName" },
