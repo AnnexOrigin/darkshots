@@ -7,7 +7,7 @@ const Index = () => {
   const navigate = useNavigate();
   const [usernameValue, setUsernameValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
-  const apiEndpoint = "http://localhost:3001/api/user/login";
+  const apiEndpoint = "https://darkshot-server.onrender.com/api";
   const loginContent = {
     minHeight: "100vh",
     width: "100vw",
@@ -24,7 +24,7 @@ const Index = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(apiEndpoint, {
+    await fetch(apiEndpoint + "/user/login", {
       method: "post",
       credentials: "include",
       headers: {
