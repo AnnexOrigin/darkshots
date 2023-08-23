@@ -1,52 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import ContentHeader from "../../components/shared/ContentHeader";
 import ContentBody from "../../components/shared/ContentBody";
 import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 import TD from "../../components/table/Td";
-import Modal from "../../components/modal/Modal";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 const Accounts = () => {
   // API url
   const apiEndpoint = "http://localhost:3001/api";
-  // Table Properties
+  // Table data, Properties
   const tableHeaders = [
     { columnName: "fullName" },
     { columnName: "contact" },
     { columnName: "username" },
     { columnName: "action" },
   ];
-  // Modal Togglers
-  const [showEditModal, setShowEditModal] = useState(false);
-  const openEditModal = () => {
-    setShowEditModal(true);
-  };
-  const closeEditModal = () => {
-    setShowEditModal(false);
-  };
-  // Table data
   const [tableUsers, setTableUsers] = useState([]);
-  // Get specific row
-  const [RowData, SetRowData] = useState([]);
-  // Form values
-  const [nameValue, setNameValue] = useState("");
-  const [contactValue, setContactValue] = useState("");
-  const [usernameValue, setUsernameValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-  // setId for CRUD functions
-  const [id, setId] = useState("");
-  const handleName = (e) => {
-    setNameValue(e.target.value);
-  };
-  const handleContact = (e) => {
-    setContactValue(e.target.value);
-  };
-  const handleUserName = (e) => {
-    setUsernameValue(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPasswordValue(e.target.value);
-  };
-  // FUNCTIONS HERE
   async function getTableData() {
     try {
       const response = await fetch(apiEndpoint + `/users`); // Replace with your server URL
@@ -63,30 +33,65 @@ const Accounts = () => {
   useEffect(() => {
     getTableData();
   }, []);
-  const clearFields = () => {
-    setNameValue("");
-    setContactValue("");
-    setUsernameValue("");
-    setPasswordValue("");
+  // Get specific row
+  const [RowData, SetRowData] = useState([]);
+  // Form values
+  const [id, setId] = useState(null);
+  const [nameValue, setNameValue] = useState("");
+  const [contactValue, setContactValue] = useState("");
+  const [usernameValue, setUsernameValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+  const handleName = (e) => {
+    setNameValue(e.target.value);
   };
-  // Handle displays
-  const handleViewUpdate = () => {
-    console.log("Before Update");
-    console.log(id);
-    console.log(nameValue);
-    console.log(contactValue);
-    console.log(usernameValue);
-    console.log(passwordValue);
+  const handleContact = (e) => {
+    setContactValue(e.target.value);
   };
-  const handleViewCreate = () => {
-    console.log("Before Create");
-    console.log(id);
-    console.log(nameValue);
-    console.log(contactValue);
-    console.log(usernameValue);
-    console.log(passwordValue);
+  const handleUserName = (e) => {
+    setUsernameValue(e.target.value);
   };
-  // CRUD submissions
+  const handlePassword = (e) => {
+    setPasswordValue(e.target.value);
+  };
+  // View Modal
+  const [viewModal, setViewModal] = useState(false);
+  const handleViewClose = () => {
+    getTableData();
+    setViewModal(false);
+  };
+  const handleViewShow = () => {
+    setViewModal(true);
+  };
+  // Create Modal
+  const [createModal, setCreateModal] = useState(false);
+
+  const handleCreateClose = () => {
+    getTableData();
+    setCreateModal(false);
+  };
+  const handleCreateShow = () => {
+    setCreateModal(true);
+  };
+  // Update Modal
+  const [updateModal, setUpdateModal] = useState(false);
+
+  const handleUpdateClose = () => {
+    getTableData();
+    setUpdateModal(false);
+  };
+  const handleUpdateShow = () => {
+    setUpdateModal(true);
+  };
+  // Delete Modal
+  const [deleteModal, setDeleteModal] = useState(false);
+  const handleDeleteClose = () => {
+    getTableData();
+    setDeleteModal(false);
+  };
+  const handleDeleteShow = () => {
+    setDeleteModal(true);
+  };
+  // CRUD Functions
   const handleCreateSubmit = async (event) => {
     event.preventDefault();
     const body = JSON.stringify({
@@ -110,7 +115,7 @@ const Accounts = () => {
         alert("Updated data:" + updatedData);
         const form = document.getElementById("formCreate");
         form.reset();
-        getTableData();
+        handleCreateClose();
       } else {
         console.error("Error updating data:", response.statusText);
       }
@@ -129,7 +134,7 @@ const Accounts = () => {
       const data = await response.json();
       if (response.status == 200) {
         console.log("User deleted");
-        getTableData();
+        handleDeleteClose();
       } else {
         console.log("Failed to delete user");
       }
@@ -140,7 +145,6 @@ const Accounts = () => {
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
     const body = {};
-
     if (nameValue) body.fullName = nameValue;
     if (contactValue) body.contact = contactValue;
     if (usernameValue) body.username = usernameValue;
@@ -158,11 +162,7 @@ const Accounts = () => {
 
       if (response.ok) {
         const updatedData = await response.json();
-        alert("Updated data:" + updatedData);
-        const form = document.getElementById("formUpdate");
-        form.reset();
-        // hideModal("updateModal");
-        getTableData();
+        handleUpdateClose();
       } else {
         console.error("Error updating data:", response.statusText);
       }
@@ -170,10 +170,6 @@ const Accounts = () => {
       console.error("Error updating data:", error);
     }
   };
-
-  // ================================================================
-
-  // ================================================================
   return (
     <>
       {/* Users Modal */}
@@ -184,10 +180,7 @@ const Accounts = () => {
             color="dark"
             label={"Create New User"}
             classes={"rounded-0 "}
-            modalTarget={"createModal"}
-            onClick={() => {
-              handleViewCreate();
-            }}
+            onClick={handleCreateShow}
             icon={<i class="bi bi-person-plus-fill"></i>}
           />,
           <div className="col-4">
@@ -224,34 +217,28 @@ const Accounts = () => {
                       values={
                         <div className="btn-group">
                           <SimpleButton
-                            classes={"rounded-0"}
-                            modalTarget={"viewModal"}
+                            color="outline-dark"
+                            size={"sm"}
                             onClick={() => {
-                              SetRowData(td);
+                              handleViewShow(SetRowData(td), setId(td._id));
                             }}
-                            color={"dark"}
-                            label={"View"}
+                            icon={<i class="bi bi-eye"></i>}
                           />
                           <SimpleButton
-                            classes={"rounded-0"}
-                            modalTarget={"updateModal"}
+                            color="outline-dark"
+                            size={"sm"}
                             onClick={() => {
-                              openEditModal(() => {
-                                SetRowData(td);
-                                setId(td._id);
-                              });
+                              handleUpdateShow(SetRowData(td), setId(td._id));
                             }}
-                            color={"dark"}
-                            label={"Edit"}
+                            icon={<i class="bi bi-pencil-square"></i>}
                           />
                           <SimpleButton
-                            classes={"rounded-0"}
-                            modalTarget={"deleteModal"}
+                            color="outline-dark"
+                            size={"sm"}
                             onClick={() => {
-                              SetRowData(td);
+                              handleDeleteShow(SetRowData(td), setId(td._id));
                             }}
-                            color={"dark"}
-                            label={"Delete"}
+                            icon={<i class="bi bi-trash3"></i>}
                           />
                         </div>
                       }
@@ -269,140 +256,123 @@ const Accounts = () => {
           }
         />
       </ContentBody>
-      <Modal title={"View User"} id={"viewModal"}>
-        <div className="modal-body">
-          <div className="input-group mb-2">
-            <span className="input-group-text">Full Name</span>
-            <input
-              type="text"
-              name=""
-              value={RowData.fullName}
-              className="form-control"
-              readOnly
-            />
-          </div>
-          <div className="input-group mb-2">
-            <span className="input-group-text">Contact/Email</span>
-            <input
-              type="text"
-              name=""
-              value={RowData.contact}
-              className="form-control"
-              readOnly
-            />
-          </div>
-          <div className="input-group mb-2">
-            <span className="input-group-text">Username</span>
-            <input
-              type="text"
-              name=""
-              value={RowData.username}
-              className="form-control"
-              readOnly
-            />
-          </div>
-          <div className="input-group mb-2">
-            <span className="input-group-text">Password</span>
-            <input
-              type="text"
-              name=""
-              value={RowData.password}
-              className="form-control"
-              readOnly
-            />
-          </div>
-        </div>
-        <div className="modal-footer">
+      {/* Modal View Users */}
+      <Modal show={viewModal} onHide={handleViewClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>User Details</Modal.Title>
+        </Modal.Header>
+        {RowData && (
+          <Modal.Body>
+            <p>Name: {RowData.fullName}</p>
+            <p>Contact: {RowData.contact}</p>
+            <p>Username: {RowData.username}</p>
+            <p>Password: {RowData.password}</p>
+          </Modal.Body>
+        )}
+        <Modal.Footer>
           <SimpleButton
-            type={"button"}
-            color={"secondary"}
-            modalDismiss={true}
+            color="secondary"
+            onClick={handleViewClose}
             label={"Close"}
           />
-        </div>
+        </Modal.Footer>
       </Modal>
-      <Modal title={"Create User"} id={"createModal"} backdrop={"static"}>
+      {/* Modal Create Users */}
+      <Modal
+        show={createModal}
+        onHide={handleCreateClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Create new user</Modal.Title>
+        </Modal.Header>
         <form
           id="formCreate"
           className="needs-validation"
           onSubmit={handleCreateSubmit}
           noValidate={false}
         >
-          <div className="modal-body">
-            <div className="input-group mb-2">
-              <span className="input-group-text">Full Name</span>
-              <input
-                type="text"
-                name=""
-                defaultValue={""}
-                onChange={handleName}
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="input-group mb-2">
-              <span className="input-group-text">Contact/Email</span>
-              <input
-                type="text"
-                name=""
-                defaultValue={""}
-                onChange={handleContact}
-                className="form-control  "
-                required
-              />
-            </div>
-            <div className="input-group mb-2">
-              <span className="input-group-text">Username</span>
-              <input
-                type="text"
-                name=""
-                defaultValue={""}
-                onChange={handleUserName}
-                className="form-control "
-                required
-              />
-            </div>
-            <div className="input-group mb-2">
-              <span className="input-group-text">Password</span>
-              <input
-                type="password"
-                name=""
-                defaultValue={""}
-                onChange={handlePassword}
-                className="form-control "
-                required
-              />
-            </div>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button type="submit" className="btn btn-success">
-              Create User
-            </button>
-          </div>
+          {RowData && (
+            <Modal.Body>
+              <div className="input-group mb-2">
+                <span className="input-group-text">Full Name</span>
+                <input
+                  type="text"
+                  name=""
+                  defaultValue={""}
+                  onChange={handleName}
+                  className="form-control"
+                  required
+                />
+              </div>
+              <div className="input-group mb-2">
+                <span className="input-group-text">Contact/Email</span>
+                <input
+                  type="text"
+                  name=""
+                  defaultValue={""}
+                  onChange={handleContact}
+                  className="form-control  "
+                  required
+                />
+              </div>
+              <div className="input-group mb-2">
+                <span className="input-group-text">Username</span>
+                <input
+                  type="text"
+                  name=""
+                  defaultValue={""}
+                  onChange={handleUserName}
+                  className="form-control "
+                  required
+                />
+              </div>
+              <div className="input-group mb-2">
+                <span className="input-group-text">Password</span>
+                <input
+                  type="password"
+                  name=""
+                  defaultValue={""}
+                  onChange={handlePassword}
+                  className="form-control "
+                  required
+                />
+              </div>
+            </Modal.Body>
+          )}
+          <Modal.Footer>
+            <SimpleButton
+              color="secondary"
+              onClick={handleCreateClose}
+              label={"Close"}
+            />
+            <SimpleButton
+              type={"submit"}
+              color="primary"
+              label={"Save Changes"}
+            />
+          </Modal.Footer>
         </form>
       </Modal>
-      {showEditModal && (
-        <Modal
-          title={"Update User"}
-          id={"updateModal"}
-          // backdrop={"static"}
-          showModal={showEditModal}
-          closeModal={closeEditModal}
+      {/* Modal Update Users */}
+      <Modal
+        show={updateModal}
+        onHide={handleUpdateClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>User Details</Modal.Title>
+        </Modal.Header>
+        <form
+          id="formUpdate"
+          className="needs-validation"
+          onSubmit={handleUpdateSubmit}
+          noValidate={false}
         >
-          <form
-            id="formUpdate"
-            className="needs-validation"
-            onSubmit={handleUpdateSubmit}
-            noValidate={false}
-          >
-            <div className="modal-body">
+          {RowData && (
+            <Modal.Body>
               <div className="input-group mb-2">
                 <span className="input-group-text">Full Name</span>
                 <input
@@ -447,34 +417,38 @@ const Accounts = () => {
                   required
                 />
               </div>
-              <div className="input-group d-flex justify-content-end">
-                <button type="submit" className="btn btn-success ">
-                  Update User
-                </button>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </Modal>
-      )}
-      <Modal title={"Delete User"} id={"deleteModal"} closeModal={true}>
-        <div className="modal-body">
-          Are you sure you want to delete{" "}
-          <span className="th-fw-bold">{RowData.fullName}</span>
-        </div>
-        <div className="modal-footer">
+            </Modal.Body>
+          )}
+          <Modal.Footer>
+            <SimpleButton
+              color="secondary"
+              onClick={handleUpdateClose}
+              label={"Close"}
+            />
+            <SimpleButton
+              type={"submit"}
+              color="primary"
+              label={"Save Changes"}
+            />
+          </Modal.Footer>
+        </form>
+      </Modal>
+      {/* Modal Update Users */}
+      <Modal show={deleteModal} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete User</Modal.Title>
+        </Modal.Header>
+        {RowData && (
+          <Modal.Body>
+            Are you sure you want to delete
+            <span className="th-fw-bold">{RowData.fullName}</span>
+          </Modal.Body>
+        )}
+        <Modal.Footer>
           <SimpleButton
             type={"button"}
             color={"secondary"}
-            modalDismiss={true}
+            onClick={handleDeleteClose}
             label={"Cancel"}
           />
           <SimpleButton
@@ -483,7 +457,7 @@ const Accounts = () => {
             label={"Delete"}
             onClick={handleDelete}
           />
-        </div>
+        </Modal.Footer>
       </Modal>
     </>
   );
