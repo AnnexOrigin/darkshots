@@ -8,7 +8,6 @@ import Register from "./pages/external/register/Index";
 import ExternalLayout from "./pages/layouts/ExternalLayout";
 import InternalLayout from "./pages/layouts/InternalLayout";
 import Posts from "./pages/posts/Index";
-import Test from "./pages/test/Index";
 
 function App() {
   return (
