@@ -10,7 +10,7 @@ const ContentBody = ({ leftArea, rightArea, children }) => {
         <div className="col-12 col-lg d-flex justify-content-lg-end gap-1 gx-1">
           {rightArea != null ? rightArea : null}
         </div>
-        <div className="col-12 overflow-auto p-0" style={{ height: "50vh" }}>
+        <div className="col-12 col-sm-12 col-md-12 col-lg-12 p-0">
           {children}
         </div>
       </div>

@@ -3,7 +3,7 @@ import InputField from "../../../components/forms/InputField";
 import SelectField from "../../../components/forms/SelectField";
 const CareerForm = ({ items }) => {
   return (
-    <form method="" action="" className="form row">
+    <form method="" action="" className="form row mx-0">
       <div className="col-6">
         <InputField name="Applicant's Name" type="text" />
       </div>

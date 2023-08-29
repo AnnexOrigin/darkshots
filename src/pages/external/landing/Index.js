@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ThemeButton from "../../../components/buttons/ThemeButton";
 import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 const Index = () => {
@@ -17,8 +17,9 @@ const Index = () => {
   const textHeading = "Where dreams become Cinematic Masterpieces";
   return (
     <div
-      className="row align-items-center landing-section"
-      style={landingContent}>
+      className="row mx-0 align-items-center landing-section"
+      style={landingContent}
+    >
       <div className="col-7">
         <ThemeHeader title={textHeading} breakWord={2} />
         <ThemeButton textName="Inquire Now" />

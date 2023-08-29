@@ -14,7 +14,7 @@ const Index = () => {
   const form = useRef(null);
 
   return (
-    <div className="row align-items-center" style={contactContent}>
+    <div className="row mx-0 align-items-center" style={contactContent}>
       <div className="col-12 mb-5">
         <ThemeHeader title={textHeading} />
       </div>

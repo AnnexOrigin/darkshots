@@ -8,6 +8,11 @@ import Register from "./pages/external/register/Index";
 import ExternalLayout from "./pages/layouts/ExternalLayout";
 import InternalLayout from "./pages/layouts/InternalLayout";
 import Posts from "./pages/posts/Index";
+//
+import Profile from "./pages/_profile/Index";
+import Order from "./pages/_order/Index";
+import Media from "./pages/_media/Index";
+import ClientLayout from "./pages/layouts/ClientLayout";
 
 function App() {
   return (
@@ -21,6 +26,11 @@ function App() {
         <Route path="admin/applicants" element={<Applicants />}></Route>
         <Route path="admin/posts" element={<Posts />}></Route>
         {/* <Route path="admin/dashboard" element={user}></Route> */}
+      </Route>
+      <Route element={<ClientLayout />}>
+        <Route path="client/profile" element={<Profile />}></Route>
+        <Route path="client/order" element={<Order />}></Route>
+        <Route path="client/media" element={<Media />}></Route>
       </Route>
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>

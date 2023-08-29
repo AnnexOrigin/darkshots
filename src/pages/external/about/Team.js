@@ -22,7 +22,7 @@ const Team = ({ items, itemCenter, image, title, subTitle }) => {
     textShadow: "2px 2px  4px  #414141",
   };
   return (
-    <div className="row justify-content-center align-items-center gap-2 ">
+    <div className="row mx-0 justify-content-center align-items-center gap-2 ">
       {enableCenteredImage.map((cardList, index) => {
         return (
           <CardsInnerText
@@ -30,7 +30,8 @@ const Team = ({ items, itemCenter, image, title, subTitle }) => {
             image={cardList.image}
             title={cardList.name}
             subTitle={cardList.position}
-            style={fontShadow}></CardsInnerText>
+            style={fontShadow}
+          ></CardsInnerText>
         );
       })}
     </div>

@@ -5,7 +5,6 @@ import SimpleButton from "../../components/buttons/SimpleButton";
 import SimpleTable from "../../components/table/SimpleTable";
 import TD from "../../components/table/Td";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 const Accounts = () => {
   // API url
   const apiEndpoint = "https://darkshot-server.onrender.com/api";
@@ -206,17 +205,15 @@ const Accounts = () => {
                     key={td._id}
                     className="align-middle font-weight-bold text-center"
                   >
+                    <TD classes={"text-capitalize "} values={td.fullName} />
+                    <TD values={td.contact} />
+                    <TD values={td.username} />
                     <TD
-                      classes={"td-ellipsis text-capitalize "}
-                      values={td.fullName}
-                    />
-                    <TD classes={"td-ellipsis"} values={td.contact} />
-                    <TD classes={"td-ellipsis"} values={td.username} />
-                    <TD
-                      classes={"td-ellipsis"}
+                      classes={"border-start border-end col-1"}
                       values={
-                        <div className="btn-group">
+                        <div className="btn-group gap-1">
                           <SimpleButton
+                            classes={"rounded-0"}
                             color="outline-dark"
                             size={"sm"}
                             onClick={() => {
@@ -225,6 +222,7 @@ const Accounts = () => {
                             icon={<i class="bi bi-eye"></i>}
                           />
                           <SimpleButton
+                            classes={"rounded-0"}
                             color="outline-dark"
                             size={"sm"}
                             onClick={() => {
@@ -233,6 +231,7 @@ const Accounts = () => {
                             icon={<i class="bi bi-pencil-square"></i>}
                           />
                           <SimpleButton
+                            classes={"rounded-0"}
                             color="outline-dark"
                             size={"sm"}
                             onClick={() => {
@@ -256,7 +255,7 @@ const Accounts = () => {
           }
         />
       </ContentBody>
-      {/* Modal View Users */}
+      {/* Modal View User */}
       <Modal show={viewModal} onHide={handleViewClose}>
         <Modal.Header closeButton>
           <Modal.Title>User Details</Modal.Title>
@@ -277,7 +276,7 @@ const Accounts = () => {
           />
         </Modal.Footer>
       </Modal>
-      {/* Modal Create Users */}
+      {/* Modal Create User */}
       <Modal
         show={createModal}
         onHide={handleCreateClose}
@@ -355,7 +354,7 @@ const Accounts = () => {
           </Modal.Footer>
         </form>
       </Modal>
-      {/* Modal Update Users */}
+      {/* Modal Update User */}
       <Modal
         show={updateModal}
         onHide={handleUpdateClose}
@@ -433,7 +432,7 @@ const Accounts = () => {
           </Modal.Footer>
         </form>
       </Modal>
-      {/* Modal Update Users */}
+      {/* Modal Delete User */}
       <Modal show={deleteModal} onHide={handleDeleteClose}>
         <Modal.Header closeButton>
           <Modal.Title>Delete User</Modal.Title>

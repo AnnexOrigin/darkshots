@@ -66,12 +66,12 @@ const Index = () => {
     },
   ];
   return (
-    <div className="row align-items-center" style={careerContent}>
+    <div className="row mx-0 align-items-center" style={careerContent}>
       <div className="col-12">
         <ThemeHeader title={textHeading} />
       </div>
       <div className="col-12 ">
-        <div className="row mb-5">
+        <div className="row mx-0 mb-5">
           <div className="text-white">
             {textMessage}
             <ThemeButton
@@ -85,7 +85,7 @@ const Index = () => {
             />
           </div>
         </div>
-        <div className="row justify-content-center align-items-center gap-2">
+        <div className="row mx-0 justify-content-center align-items-center gap-2">
           {jobPositions.map((jobPosition) => {
             return (
               <Card

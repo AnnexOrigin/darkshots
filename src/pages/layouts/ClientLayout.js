@@ -1,7 +1,8 @@
 import React from "react";
 import NavigationBar from "../../components/shared/NavigationBar";
 import { Outlet, Link } from "react-router-dom";
-const InternalLayout = () => {
+import "./sidebar.css";
+const ClientLayout = () => {
   const containerStyle = {
     marginTop: "3.625rem",
   };
@@ -20,27 +21,21 @@ const InternalLayout = () => {
   const sidebarLists = [
     {
       id: 1,
-      redirectTo: "admin/accounts",
-      name: "Accounts",
-      icon: <i class="bi bi-person-gear"></i>,
+      redirectTo: "client/profile",
+      name: "Profile",
+      icon: <i class="bi bi-person"></i>,
     },
     {
       id: 2,
-      redirectTo: "admin/applicants",
-      name: "Applicants",
-      icon: <i class="bi bi-people"></i>,
+      redirectTo: "client/order",
+      name: "Order",
+      icon: <i class="bi bi-card-checklist"></i>,
     },
     {
       id: 3,
-      redirectTo: "admin/clients",
-      name: "Clients",
-      icon: <i class="bi bi-person-badge"></i>,
-    },
-    {
-      id: 4,
-      redirectTo: "admin/posts",
-      name: "Posts",
-      icon: <i class="bi bi-file-earmark-plus"></i>,
+      redirectTo: "client/media",
+      name: "Media Files",
+      icon: <i class="bi bi-images"></i>,
     },
   ];
   const contentHeight = {
@@ -52,19 +47,19 @@ const InternalLayout = () => {
       <div className="bg-light">
         <NavigationBar links={accessLists} position="true" />
         <div className="row flex-nowrap mx-0" style={containerStyle}>
-          <aside className="col-2 col-sm-3 col-md-3 col-lg-3 col-xl-2 p-0 bg-dark position-fixed vh-100 text-light container pt-4 ">
-            <div className="vstack sidebar navbar-nav">
+          <aside className="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-2 p-0 bg-dark position-fixed vh-100 text-light container pt-4 ">
+            <div className="vstack sidebar">
               {sidebarLists.map((link) => {
                 return (
                   <>
                     <Link
                       key={link.id}
                       to={link.redirectTo}
-                      className="nav-item text-decoration-none col sidebar-link"
+                      className="text-decoration-none col sidebar-link"
                     >
                       <div className="row mx-0 justify-content-center align-items-center">
                         <div className="col-auto">{link.icon}</div>
-                        <div className="col d-none d-sm-block d-md-block d-lg-block">
+                        <div className="col d-none d-sm-none d-md-block d-lg-block">
                           {link.name}
                         </div>
                       </div>
@@ -86,4 +81,4 @@ const InternalLayout = () => {
   );
 };
 
-export default InternalLayout;
+export default ClientLayout;

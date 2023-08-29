@@ -1,0 +1,8 @@
+.sidebar-link {
+  padding-block: 0.5rem;
+  color: #ffffff;
+  /* padding-inline: 1rem; */
+}
+.sidebar-link:hover {
+  background-color: #31373d;
+}

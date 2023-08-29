@@ -50,7 +50,7 @@ const Index = () => {
     },
   ];
   return (
-    <div className="row align-items-center " style={aboutContent}>
+    <div className="row mx-0 align-items-center " style={aboutContent}>
       <div className="col-lg-12">
         <ThemeHeader title={textHeading} />
       </div>
