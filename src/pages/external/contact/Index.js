@@ -5,7 +5,7 @@ import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 const Index = () => {
   const contactContent = {
     minHeight: "100vh",
-    width: "100vw",
+    width: "100%",
     boxSizing: "border-box",
     padding: "10%",
     position: "relative",

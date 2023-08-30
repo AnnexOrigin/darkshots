@@ -41,7 +41,11 @@ const NavigationBar = ({ links, position }) => {
     height: "30px",
     objectFit: "cover",
   };
-
+  const navbarStyle = {
+    backgroundColor: "rgba(0, 0, 0, 0.25)",
+    backdropFilter: "blur(10px)",
+    zIndex: "3",
+  };
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -69,25 +73,27 @@ const NavigationBar = ({ links, position }) => {
         ""
       ) : (
         <nav
-          className="navbar  navbar-expand-lg navbar-dark fixed-top shadow-sm px-5"
-          style={{ zIndex: "3", backgroundColor: "rgba(0,0,0,0.5)" }}
+          className="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm px-5"
+          style={navbarStyle}
         >
           <Link className="navbar-brand " to="/">
             <img src={logo} className="img img-fluid" style={logoImage} />
           </Link>
 
           <>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
+            <div className="d-flex gap-2 d-block d-md-block d-lg-none">
+              <button
+                class="navbar-toggler bg-transparent btn btn-dark border border-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="bi bi-list"></i>
+              </button>
+            </div>
             <div
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
@@ -113,13 +119,31 @@ const NavigationBar = ({ links, position }) => {
                       );
                     })
                   : ``}
+                <li className="nav-item">
+                  <div className="d-flex justify-content-end gap-2 d-block d-md-block d-lg-none">
+                    <ThemeButton
+                      textName="Register"
+                      clickTrigger={handleRegister}
+                    />
+                    <ThemeButton
+                      textName="Sign in"
+                      primary={false}
+                      clickTrigger={handleLogin}
+                    />
+                  </div>
+                </li>
               </ul>
-              <ThemeButton textName="Register" clickTrigger={handleRegister} />
-              <ThemeButton
-                textName="Sign in"
-                primary={false}
-                clickTrigger={handleLogin}
-              />
+              <div className="d-flex gap-2 d-none d-md-none d-lg-block">
+                <ThemeButton
+                  textName="Register"
+                  clickTrigger={handleRegister}
+                />
+                <ThemeButton
+                  textName="Sign in"
+                  primary={false}
+                  clickTrigger={handleLogin}
+                />
+              </div>
             </div>
           </>
         </nav>

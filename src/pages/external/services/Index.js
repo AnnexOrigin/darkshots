@@ -4,7 +4,7 @@ import Carousel from "../../../components/collections/Carousel";
 const Index = () => {
   const servicesContent = {
     minHeight: "100vh",
-    width: "100vw",
+    width: "100%",
     boxSizing: "border-box",
     padding: "10%",
     position: "relative",

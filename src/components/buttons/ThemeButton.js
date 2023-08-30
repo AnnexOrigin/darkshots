@@ -38,7 +38,7 @@ const ThemeButton = ({
         <button
           ref={btn}
           type={type ? "submit" : "button"}
-          className="btn  btn-dark btn-theme border rounded-0 mx-1 text-uppercase"
+          className="btn btn-dark btn-theme border rounded-0 mx-1 text-uppercase"
           onClick={clickTrigger}
           style={{ fontFamily: "Agdasima-Bold" }}
         >

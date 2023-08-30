@@ -4,7 +4,7 @@ import File1 from "../../assets/files/legal.txt";
 import Logo from "../../assets/images/brand/darkshot-logo.png";
 const Footer = () => {
   const footerContent = {
-    width: "100vw",
+    width: "100%",
     boxSizing: "border-box",
     paddingTop: "5%",
     paddingBottom: "5%",
@@ -39,7 +39,7 @@ const Footer = () => {
   ];
   return (
     <footer
-      className="row justify-content-center align-items-center"
+      className="row mx-0 justify-content-center align-items-center"
       style={footerContent}
     >
       <div className="col-lg-4">

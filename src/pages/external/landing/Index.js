@@ -4,7 +4,7 @@ import ThemeHeader from "../../../components/textHeaders/ThemeHeader";
 const Index = () => {
   const landingContent = {
     height: "100vh",
-    width: "100vw",
+    width: "100%",
     boxSizing: "border-box",
     padding: "10%",
     backgroundImage:
@@ -12,6 +12,7 @@ const Index = () => {
       require("../../../assets/images/brand/cinema_bg.png") +
       ")",
     backgroundSize: "cover",
+    backgroundPosition: "95%  0%", // Set background position to right
     position: "relative",
   };
   const textHeading = "Where dreams become Cinematic Masterpieces";
@@ -20,10 +21,12 @@ const Index = () => {
       className="row mx-0 align-items-center landing-section"
       style={landingContent}
     >
-      <div className="col-7">
+      <div className="col-12">
         <ThemeHeader title={textHeading} breakWord={2} />
-        <ThemeButton textName="Inquire Now" />
-        <ThemeButton textName="Learn more" primary={false} />
+        <div className="d-flex gap-1 col-12">
+          <ThemeButton textName="Inquire Now" />
+          <ThemeButton textName="Learn more" primary={false} />
+        </div>
       </div>
     </div>
   );
