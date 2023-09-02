@@ -6,22 +6,24 @@ const SimpleTable = ({ heads, rows }) => {
       <div style={{ height: "50vh", overflow: "auto" }}>
         <table className="table table-sm table-hover table-responsive">
           <thead className=" text-center text-uppercase ">
-            {heads != null
-              ? heads.map((th, index) => {
-                  return (
-                    <>
-                      <th
-                        key={index}
-                        className="th-fw-bold p-0 sticky-top th-bg-secondary"
-                      >
-                        <div className=" th-fw-bold th-bg-secondary">
-                          {th.columnName}
-                        </div>
-                      </th>
-                    </>
-                  );
-                })
-              : ""}
+            <tr>
+              {heads != null
+                ? heads.map((th) => {
+                    return (
+                      <>
+                        <th
+                          key={th._id}
+                          className="th-fw-bold p-0 sticky-top th-bg-secondary"
+                        >
+                          <div className=" th-fw-bold th-bg-secondary">
+                            {th.columnName}
+                          </div>
+                        </th>
+                      </>
+                    );
+                  })
+                : ""}
+            </tr>
           </thead>
           <tbody>{rows}</tbody>
         </table>

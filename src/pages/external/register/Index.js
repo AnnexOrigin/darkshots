@@ -10,7 +10,8 @@ const Index = () => {
   const [contactValue, setContactValue] = useState(null);
   const [usernameValue, setUsernameValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
-  const apiEndpoint = "https://darkshot-server.onrender.com/api";
+  // const apiEndpoint = "https://darkshot-server.onrender.com/api";
+  const apiEndpoint = "http://localhost:3001/api";
   const registerContent = {
     minHeight: "100vh",
     width: "100vw",
@@ -36,15 +37,17 @@ const Index = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = JSON.stringify({
+      fullName: nameValue,
+      contact: contactValue,
+      username: usernameValue,
+      password: passwordValue,
+      position: "applicant",
+    });
     await fetch(apiEndpoint + "/user", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        fullName: nameValue,
-        contact: contactValue,
-        username: usernameValue,
-        password: passwordValue,
-      }),
+      body: formData,
     })
       .then((response) => {
         response.json();
@@ -56,9 +59,7 @@ const Index = () => {
         console.log(error.message);
       })
       .finally(() => {
-        setTimeout(() => {
-          alert("success");
-        }, 5000);
+        alert(formData);
       });
   };
   const textHeading = "Create new account";

@@ -7,21 +7,37 @@ import TD from "../../components/table/Td";
 import Modal from "react-bootstrap/Modal";
 const Accounts = () => {
   // API url
-  const apiEndpoint = "https://darkshot-server.onrender.com/api";
-  // Table data, Properties
+  // const apiEndpoint = "https://darkshot-server.onrender.com/api";
+  const apiEndpoint = "http://localhost:3001/api";
+  // Array Properties
   const tableHeaders = [
     { columnName: "fullName" },
     { columnName: "contact" },
-    { columnName: "username" },
+    { columnName: "position" },
     { columnName: "action" },
+  ];
+  const position = [
+    {
+      value: "admin",
+      label: "Admin",
+    },
+    {
+      value: "client",
+      label: "Client",
+    },
+    {
+      value: "applicant",
+      label: "Applicant",
+    },
   ];
   const [tableUsers, setTableUsers] = useState([]);
   async function getTableData() {
     try {
-      const response = await fetch(apiEndpoint + `/users`); // Replace with your server URL
+      const response = await fetch(apiEndpoint + "/users"); // Replace with your server URL
       const data = await response.json();
       if (response.status == 200) {
         setTableUsers(data);
+        console.log(data.userLists);
       } else {
         alert("Table not displaying");
       }
@@ -31,7 +47,7 @@ const Accounts = () => {
   }
   useEffect(() => {
     getTableData();
-  }, []);
+  }, [{}]);
   // Get specific row
   const [RowData, SetRowData] = useState([]);
   // Form values
@@ -40,22 +56,40 @@ const Accounts = () => {
   const [contactValue, setContactValue] = useState("");
   const [usernameValue, setUsernameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [positionValue, setPositionValue] = useState("");
+  // VARIABLE HANDLERS
   const handleName = (e) => {
+    validField(e);
     setNameValue(e.target.value);
   };
   const handleContact = (e) => {
+    validField(e);
     setContactValue(e.target.value);
   };
   const handleUserName = (e) => {
+    validField(e);
     setUsernameValue(e.target.value);
   };
   const handlePassword = (e) => {
+    validField(e);
     setPasswordValue(e.target.value);
   };
+  const handlePosition = (e) => {
+    validField(e);
+    setPositionValue(e.target.value);
+  };
+  // Client-Side field validation
+  const validField = (e) => {
+    const inputClass =
+      e.target.value === ""
+        ? "form-control is-invalid"
+        : "form-control is-valid";
+    e.target.className = inputClass;
+  };
+  // MODAL TOGGLERS
   // View Modal
   const [viewModal, setViewModal] = useState(false);
   const handleViewClose = () => {
-    getTableData();
     setViewModal(false);
   };
   const handleViewShow = () => {
@@ -65,7 +99,6 @@ const Accounts = () => {
   const [createModal, setCreateModal] = useState(false);
 
   const handleCreateClose = () => {
-    getTableData();
     setCreateModal(false);
   };
   const handleCreateShow = () => {
@@ -75,7 +108,6 @@ const Accounts = () => {
   const [updateModal, setUpdateModal] = useState(false);
 
   const handleUpdateClose = () => {
-    getTableData();
     setUpdateModal(false);
   };
   const handleUpdateShow = () => {
@@ -84,7 +116,6 @@ const Accounts = () => {
   // Delete Modal
   const [deleteModal, setDeleteModal] = useState(false);
   const handleDeleteClose = () => {
-    getTableData();
     setDeleteModal(false);
   };
   const handleDeleteShow = () => {
@@ -98,6 +129,7 @@ const Accounts = () => {
       contact: contactValue,
       username: usernameValue,
       password: passwordValue,
+      position: positionValue,
     });
     try {
       const postUrl = apiEndpoint + "/user";
@@ -110,8 +142,10 @@ const Accounts = () => {
       });
 
       if (response.ok) {
-        const updatedData = await response.json();
-        alert("Updated data:" + updatedData);
+        const addedData = await response.json();
+        alert(
+          "User added successfully:\n" + JSON.stringify(addedData, null, 2)
+        );
         const form = document.getElementById("formCreate");
         form.reset();
         handleCreateClose();
@@ -148,7 +182,7 @@ const Accounts = () => {
     if (contactValue) body.contact = contactValue;
     if (usernameValue) body.username = usernameValue;
     if (passwordValue) body.password = passwordValue;
-
+    if (positionValue) body.position = positionValue;
     try {
       const postUrl = apiEndpoint + "/user/" + id;
       const response = await fetch(postUrl, {
@@ -160,10 +194,11 @@ const Accounts = () => {
       });
 
       if (response.ok) {
-        const updatedData = await response.json();
+        console.log("User updated:\n" + body);
         handleUpdateClose();
       } else {
         console.error("Error updating data:", response.statusText);
+        handleUpdateClose();
       }
     } catch (error) {
       console.error("Error updating data:", error);
@@ -180,7 +215,7 @@ const Accounts = () => {
             label={"Create New User"}
             classes={"rounded-0 "}
             onClick={handleCreateShow}
-            icon={<i class="bi bi-person-plus-fill"></i>}
+            icon={<i className="bi bi-person-plus-fill"></i>}
           />,
           <div className="col-4">
             <input
@@ -207,7 +242,7 @@ const Accounts = () => {
                   >
                     <TD classes={"text-capitalize "} values={td.fullName} />
                     <TD values={td.contact} />
-                    <TD values={td.username} />
+                    <TD values={td.position} />
                     <TD
                       classes={"border-start border-end col-1"}
                       values={
@@ -219,7 +254,7 @@ const Accounts = () => {
                             onClick={() => {
                               handleViewShow(SetRowData(td), setId(td._id));
                             }}
-                            icon={<i class="bi bi-eye"></i>}
+                            icon={<i className="bi bi-eye"></i>}
                           />
                           <SimpleButton
                             classes={"rounded-0"}
@@ -228,7 +263,7 @@ const Accounts = () => {
                             onClick={() => {
                               handleUpdateShow(SetRowData(td), setId(td._id));
                             }}
-                            icon={<i class="bi bi-pencil-square"></i>}
+                            icon={<i className="bi bi-pencil-square"></i>}
                           />
                           <SimpleButton
                             classes={"rounded-0"}
@@ -237,7 +272,7 @@ const Accounts = () => {
                             onClick={() => {
                               handleDeleteShow(SetRowData(td), setId(td._id));
                             }}
-                            icon={<i class="bi bi-trash3"></i>}
+                            icon={<i className="bi bi-trash3"></i>}
                           />
                         </div>
                       }
@@ -266,6 +301,7 @@ const Accounts = () => {
             <p>Contact: {RowData.contact}</p>
             <p>Username: {RowData.username}</p>
             <p>Password: {RowData.password}</p>
+            <p>Position: {RowData.position}</p>
           </Modal.Body>
         )}
         <Modal.Footer>
@@ -293,19 +329,19 @@ const Accounts = () => {
           noValidate={false}
         >
           {RowData && (
-            <Modal.Body>
-              <div className="input-group mb-2">
+            <Modal.Body className="row mx-0 gap-2">
+              <div className="input-group">
                 <span className="input-group-text">Full Name</span>
                 <input
                   type="text"
-                  name=""
+                  name="fullName"
                   defaultValue={""}
                   onChange={handleName}
-                  className="form-control"
+                  className={`form-control`}
                   required
                 />
               </div>
-              <div className="input-group mb-2">
+              <div className="input-group">
                 <span className="input-group-text">Contact/Email</span>
                 <input
                   type="text"
@@ -316,7 +352,7 @@ const Accounts = () => {
                   required
                 />
               </div>
-              <div className="input-group mb-2">
+              <div className="input-group">
                 <span className="input-group-text">Username</span>
                 <input
                   type="text"
@@ -327,7 +363,7 @@ const Accounts = () => {
                   required
                 />
               </div>
-              <div className="input-group mb-2">
+              <div className="input-group">
                 <span className="input-group-text">Password</span>
                 <input
                   type="password"
@@ -337,6 +373,21 @@ const Accounts = () => {
                   className="form-control "
                   required
                 />
+              </div>
+              <div className="input-group">
+                <span className="input-group-text">Position</span>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  onChange={handlePosition}
+                >
+                  <option value={""} selected>
+                    select position
+                  </option>
+                  {position.map((pos) => {
+                    return <option value={pos.value}>{pos.label}</option>;
+                  })}
+                </select>
               </div>
             </Modal.Body>
           )}
@@ -371,8 +422,8 @@ const Accounts = () => {
           noValidate={false}
         >
           {RowData && (
-            <Modal.Body>
-              <div className="input-group mb-2">
+            <Modal.Body className="row mx-0 gap-2">
+              <div className="input-group">
                 <span className="input-group-text">Full Name</span>
                 <input
                   type="text"
@@ -383,7 +434,7 @@ const Accounts = () => {
                   required
                 />
               </div>
-              <div className="input-group mb-2">
+              <div className="input-group">
                 <span className="input-group-text">Contact/Email</span>
                 <input
                   type="text"
@@ -394,7 +445,7 @@ const Accounts = () => {
                   required
                 />
               </div>
-              <div className="input-group mb-2">
+              <div className="input-group">
                 <span className="input-group-text">Username</span>
                 <input
                   type="text"
@@ -405,7 +456,7 @@ const Accounts = () => {
                   required
                 />
               </div>
-              <div className="input-group mb-2">
+              <div className="input-group">
                 <span className="input-group-text">Password</span>
                 <input
                   type="password"
@@ -415,6 +466,22 @@ const Accounts = () => {
                   className="form-control "
                   required
                 />
+              </div>
+              <div className="input-group">
+                <span className="input-group-text">Position</span>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  defaultValue={RowData.position}
+                  onChange={handlePosition}
+                >
+                  <option value={""} selected>
+                    select position
+                  </option>
+                  {position.map((pos) => {
+                    return <option value={pos.value}>{pos.label}</option>;
+                  })}
+                </select>
               </div>
             </Modal.Body>
           )}
